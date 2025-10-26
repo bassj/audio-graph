@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://dn7avnhruiiq2"]
+
+[ext_resource type="Script" uid="uid://chqq8bf0g1hsk" path="res://audio_graph_graph_edit.gd" id="1_wtcfe"]
+[ext_resource type="PackedScene" uid="uid://cyoxydacsgr02" path="res://audio_graph_nodes/mono_output_node.tscn" id="2_0e48y"]
+[ext_resource type="Script" uid="uid://cbodbked54srs" path="res://audio_graph.gd" id="3_0hol4"]
+[ext_resource type="Script" uid="uid://8gbmea3v8e6b" path="res://audio_graph_player.gd" id="3_q6r6c"]
+
+[sub_resource type="GDScript" id="GDScript_0hol4"]
+script/source = "extends Node2D
+
+@onready var _player = $AudioStreamPlayer
+
+var idle_rpm = 760
+var max_rpm = 6000
+
+func _process(_delta: float) -> void:
+	var throttle = Input.get_action_strength(\"throttle\")
+	var rpm = lerp(idle_rpm, max_rpm, throttle)
+	_player.audio_graph.engine_freq = rpm / 60.0;
+"
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_kdubu"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0hol4"]
+
+[sub_resource type="Resource" id="Resource_d21ai"]
+script = ExtResource("3_0hol4")
+engine_freq = 60.0
+turbulence_noise = SubResource("FastNoiseLite_0hol4")
+metadata/_custom_type_script = "uid://cbodbked54srs"
+
+[node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_0hol4")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GraphEdit" type="GraphEdit" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+minimap_enabled = false
+show_menu = false
+script = ExtResource("1_wtcfe")
+
+[node name="MonoOutput" parent="CanvasLayer/GraphEdit" instance=ExtResource("2_0e48y")]
+layout_mode = 0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamGenerator_kdubu")
+script = ExtResource("3_q6r6c")
+audio_graph = SubResource("Resource_d21ai")
