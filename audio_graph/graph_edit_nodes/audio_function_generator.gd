@@ -1,6 +1,6 @@
 extends BaseNode
 
-@onready var preview: FunctionPlotter = $AudioFunctionOut/VBoxContainer/FunctionPlotter
+@onready var preview: FunctionPlotter = $AudioFunctionOut/VBoxContainer/Control/FunctionPlotter
 
 @onready var frequency_spin: SpinBox = $FunctionFrequencyIn/SpinBox
 @onready var frequency_slider: HSlider = $FunctionFrequencyIn/HSlider
