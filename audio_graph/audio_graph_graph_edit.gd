@@ -72,6 +72,12 @@ func _init_connection_handlers() -> void:
 		for node in nodes:
 			var child = get_node(NodePath(node))
 			if child and child.get("can_be_deleted"):
+				var connections = get_connection_list_from_node(node)
+				for c in connections:
+					var to_node = c["to_node"]
+					var to_port = c["to_port"]
+					var to_node_ref = get_node(NodePath(to_node)) as BaseNode
+					to_node_ref.set_input(to_port, null)
 				child.queue_free()
 	)
 

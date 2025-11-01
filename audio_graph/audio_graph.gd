@@ -2,10 +2,14 @@
 extends Resource
 class_name AudioGraph
 
-@export var graph_root: AudioGraphNode
+@export var graph_root: AudioGraphNode :
+	set(p_graph_root):
+		graph_root = p_graph_root
 
 func sample(increment: float) -> Vector2:
-	assert(graph_root != null, "Trying to sample AudioGraph with no root node set")
+	if not graph_root:
+		return Vector2.ZERO
+
 	var _sample = graph_root.sample(increment)
 	return Vector2.ONE * _sample
 
