@@ -7,6 +7,8 @@ var playback: AudioStreamGeneratorPlayback
 
 func _process(delta: float) -> void:
 	if not has_stream_playback():
+		if playback != null:
+			playback = null
 		return
 
 	if not playback:
