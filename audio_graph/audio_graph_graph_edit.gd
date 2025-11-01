@@ -1,28 +1,63 @@
 extends GraphEdit
 
 const AudioFunctionGenerator: PackedScene = preload("res://audio_graph/graph_edit_nodes/audio_function_generator.tscn");
+const Mix2 = preload("res://audio_graph/graph_edit_nodes/mixer_nodes/mix2_node.tscn");
 
 @export var audio_graph: AudioGraph
 
 @onready var output_graph_node : MonoOutputNode = $MonoOutput
 
-var popup_menu: PopupMenu
+var _node_types = {
+	"Generator": AudioFunctionGenerator,
+	"Mix": {
+		"Mix2": Mix2,
+	}
+}
+
+var context_menu: PopupMenu
 
 func _ready() -> void:
 	assert(audio_graph != null, "AudioGraphGraphEdit has no AudioGraph assigned to it.")
 	_init_output_node()
-	_init_popup_menu()
+	_init_context_menu()
 	_init_connection_handlers()
 
-func _init_popup_menu() -> void:
-	popup_menu = PopupMenu.new()
-	popup_menu.add_item("Add Function Generator")
-	popup_menu.id_pressed.connect(_on_popup_menu_id_pressed)
-	add_child(popup_menu)
+func _on_context_menu_id_pressed(p_context_menu: PopupMenu) -> Callable:
+	return func (id: int):
+		var value = p_context_menu.get_item_metadata(id)
+		var instance = value.instantiate()
+		add_child(instance)
+		instance.position_offset = get_local_mouse_position() + scroll_offset
+
+func _add_context_menu_item(p_context_menu: PopupMenu, label: String, value: Variant) -> void:
+	if value is Dictionary:
+		var submenu_name = label + "Menu"
+		var submenu = PopupMenu.new()
+		submenu.id_pressed.connect(_on_context_menu_id_pressed(submenu))
+		submenu.name = submenu_name
+		for sublabel in value.keys():
+			_add_context_menu_item(submenu, sublabel, value[sublabel])
+		p_context_menu.add_child(submenu)
+		p_context_menu.add_submenu_item(label, submenu_name)
+	else:
+		var id = p_context_menu.get_item_count()
+		p_context_menu.add_item(label, id)
+		p_context_menu.set_item_metadata(id, value)
+
+
+func _init_context_menu() -> void:
+	context_menu = PopupMenu.new()
+	context_menu.id_pressed.connect(_on_context_menu_id_pressed(context_menu))
+
+	for label in _node_types.keys():
+		var value = _node_types[label]
+		_add_context_menu_item(context_menu, label, value)
+
+	add_child(context_menu)
 
 	popup_request.connect(func (at_position):
-		popup_menu.set_position(at_position)
-		popup_menu.show()
+		context_menu.set_position(at_position)
+		context_menu.show()
 	)
 
 func _init_output_node() -> void:
@@ -58,7 +93,7 @@ func _init_connection_handlers() -> void:
 		for c in _get_incoming_connections_with_port(to_node, to_port):
 			disconnect_node(c["from_node"], c["from_port"], to_node, to_port)
 
-		to_node_ref.set_input(from_node_ref.get_output())
+		to_node_ref.set_input(to_port, from_node_ref.get_output())
 
 		connect_node(from_node, from_port, to_node, to_port)
 	)
@@ -73,16 +108,6 @@ func _init_connection_handlers() -> void:
 		to_node_ref.input = null
 		disconnect_node(from_node, from_port, to_node, to_port)
 	)
-
-func _on_popup_menu_id_pressed(id: int) -> void:
-	match id:
-		0:
-			_add_function_generator()
-
-func _add_function_generator() -> void:
-	var instance = AudioFunctionGenerator.instantiate()
-	add_child(instance)
-	instance.position_offset = get_local_mouse_position() + scroll_offset
 
 func _get_incoming_connections_with_port(node: StringName, port: int):
 	var cons = get_connection_list_from_node(node)

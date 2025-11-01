@@ -23,7 +23,9 @@ func get_output() -> AudioGraphNode:
 	assert(false, "MonoOutputNode does not have an output.")
 	return null
 
-func set_input(p_input: AudioGraphNode) -> void:
+func set_input(index: int, p_input: AudioGraphNode) -> void:
+	assert(index == 0, "MonoOutputNode only supports a single input at index 0.")
+
 	if input == p_input:
 		return
 
@@ -32,6 +34,8 @@ func set_input(p_input: AudioGraphNode) -> void:
 
 func _ready() -> void:
 	play_button.pressed.connect(func ():
+		if input == null:
+			return
 		audio_graph_player.play()
 	)
 	pause_button.pressed.connect(func ():
