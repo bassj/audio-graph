@@ -1,0 +1,86 @@
+[gd_scene load_steps=11 format=3 uid="uid://cyoxydacsgr02"]
+
+[ext_resource type="Script" uid="uid://kljwyh1r84jn" path="res://audio_graph/graph_edit_nodes/mono_output_node.gd" id="1_3ejgn"]
+[ext_resource type="Texture2D" uid="uid://exo5ffos1gtk" path="res://solar--play-bold.svg" id="2_ryff6"]
+[ext_resource type="Texture2D" uid="uid://8y0tv2rusl0r" path="res://solar--pause-bold.svg" id="3_5o8ix"]
+[ext_resource type="Script" uid="uid://8gbmea3v8e6b" path="res://audio_graph/audio_graph_player.gd" id="3_72282"]
+[ext_resource type="Script" uid="uid://b2c874lrihi8f" path="res://audio_graph/audio_graph_nodes/generator.gd" id="4_81dvp"]
+[ext_resource type="Texture2D" uid="uid://c0qchdnruud8n" path="res://solar--stop-bold.svg" id="4_ysbfd"]
+[ext_resource type="Script" uid="uid://cbodbked54srs" path="res://audio_graph/audio_graph.gd" id="5_5o8ix"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_ysbfd"]
+
+[sub_resource type="Resource" id="Resource_8mm7a"]
+script = ExtResource("4_81dvp")
+function = "sine"
+metadata/_custom_type_script = "uid://b2c874lrihi8f"
+
+[sub_resource type="Resource" id="Resource_tisc8"]
+script = ExtResource("5_5o8ix")
+graph_root = SubResource("Resource_8mm7a")
+metadata/_custom_type_script = "uid://cbodbked54srs"
+
+[node name="GraphNode" type="GraphNode"]
+offset_right = 113.0
+offset_bottom = 78.0
+mouse_filter = 1
+title = "Mono Output"
+slot/0/left_enabled = true
+slot/0/left_type = 1
+slot/0/left_color = Color(0, 1, 0, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+script = ExtResource("1_3ejgn")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Audio"
+
+[node name="PlaybackPosition" type="Label" parent="."]
+layout_mode = 2
+text = "00:00:00"
+horizontal_alignment = 1
+
+[node name="Controls" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="Controls"]
+layout_mode = 2
+size_flags_horizontal = 4
+icon = ExtResource("2_ryff6")
+icon_alignment = 1
+
+[node name="PauseButton" type="Button" parent="Controls"]
+layout_mode = 2
+icon = ExtResource("3_5o8ix")
+
+[node name="StopButton" type="Button" parent="Controls"]
+layout_mode = 2
+icon = ExtResource("4_ysbfd")
+
+[node name="AudioGraphPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamGenerator_ysbfd")
+script = ExtResource("3_72282")
+audio_graph = SubResource("Resource_tisc8")

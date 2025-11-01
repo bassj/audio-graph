@@ -1,10 +1,20 @@
 extends GraphEdit
 
-const AudioFunctionGenerator: PackedScene = preload("res://audio_graph_nodes/audio_function_generator.tscn");
+const AudioFunctionGenerator: PackedScene = preload("res://audio_graph/graph_edit_nodes/audio_function_generator.tscn");
+
+@export var audio_graph: AudioGraph
+
+@onready var output_graph_node : MonoOutputNode = $MonoOutput
 
 var popup_menu: PopupMenu
 
 func _ready() -> void:
+	assert(audio_graph != null, "AudioGraphGraphEdit has no AudioGraph assigned to it.")
+	_init_output_node()
+	_init_popup_menu()
+	_init_connection_handlers()
+
+func _init_popup_menu() -> void:
 	popup_menu = PopupMenu.new()
 	popup_menu.add_item("Add Function Generator")
 	popup_menu.id_pressed.connect(_on_popup_menu_id_pressed)
@@ -15,6 +25,14 @@ func _ready() -> void:
 		popup_menu.show()
 	)
 
+func _init_output_node() -> void:
+	output_graph_node.set_audio_graph(audio_graph)
+
+	output_graph_node.input_changed.connect(func (new_input: AudioGraphNode):
+		audio_graph.graph_root = new_input
+	)
+
+func _init_connection_handlers() -> void:
 	delete_nodes_request.connect(func (nodes: Array):
 		for node in nodes:
 			var child = get_node(NodePath(node))
@@ -40,10 +58,19 @@ func _ready() -> void:
 		for c in _get_incoming_connections_with_port(to_node, to_port):
 			disconnect_node(c["from_node"], c["from_port"], to_node, to_port)
 
+		to_node_ref.set_input(from_node_ref.get_output())
+
 		connect_node(from_node, from_port, to_node, to_port)
 	)
 
 	disconnection_request.connect(func(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
+		var from_node_ref = get_node(NodePath(from_node)) as GraphNode
+		var to_node_ref = get_node(NodePath(to_node)) as GraphNode
+
+		if not from_node_ref or not to_node_ref:
+			return
+
+		to_node_ref.input = null
 		disconnect_node(from_node, from_port, to_node, to_port)
 	)
 
@@ -55,7 +82,7 @@ func _on_popup_menu_id_pressed(id: int) -> void:
 func _add_function_generator() -> void:
 	var instance = AudioFunctionGenerator.instantiate()
 	add_child(instance)
-	instance.set_position(get_local_mouse_position())
+	instance.position_offset = get_local_mouse_position() + scroll_offset
 
 func _get_incoming_connections_with_port(node: StringName, port: int):
 	var cons = get_connection_list_from_node(node)
@@ -70,3 +97,9 @@ func _get_incoming_connections_with_port(node: StringName, port: int):
 		result.push_back(c)
 
 	return result
+
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings = PackedStringArray()
+	if not audio_graph:
+		warnings.append("AudioGraphGraphEdit has no AudioGraph assigned to it.")
+	return warnings

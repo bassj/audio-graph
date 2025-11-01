@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://dn7avnhruiiq2"]
+
+[ext_resource type="Script" uid="uid://chqq8bf0g1hsk" path="res://audio_graph/audio_graph_graph_edit.gd" id="1_wtcfe"]
+[ext_resource type="PackedScene" uid="uid://cyoxydacsgr02" path="res://audio_graph/graph_edit_nodes/mono_output_node.tscn" id="2_0e48y"]
+[ext_resource type="Script" uid="uid://cbodbked54srs" path="res://audio_graph/audio_graph.gd" id="3_0hol4"]
+
+[sub_resource type="GDScript" id="GDScript_0hol4"]
+script/source = "extends Node2D
+
+#@onready var _player = $AudioStreamPlayer
+
+var idle_rpm = 760
+var max_rpm = 6000
+
+#func _process(_delta: float) -> void:
+	#var throttle = Input.get_action_strength(\"throttle\")
+	#var rpm = lerp(idle_rpm, max_rpm, throttle)
+#	_player.audio_graph.engine_freq = rpm / 60.0;
+"
+
+[sub_resource type="Resource" id="Resource_gyfs4"]
+script = ExtResource("3_0hol4")
+metadata/_custom_type_script = "uid://cbodbked54srs"
+
+[node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_0hol4")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GraphEdit" type="GraphEdit" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+minimap_enabled = false
+show_menu = false
+script = ExtResource("1_wtcfe")
+audio_graph = SubResource("Resource_gyfs4")
+
+[node name="MonoOutput" parent="CanvasLayer/GraphEdit" instance=ExtResource("2_0e48y")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.60200006
+anchor_top = 0.57000005
+anchor_right = 0.60200006
+anchor_bottom = 0.57000005
+offset_left = -66.50409
+offset_top = -71.36005
+offset_right = 73.49591
+offset_bottom = 65.63995
+position_offset = Vector2(627, 298)

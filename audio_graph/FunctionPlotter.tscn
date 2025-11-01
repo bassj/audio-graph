@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4s7dpyk5mljs"]
+
+[ext_resource type="Script" uid="uid://d0oca172jemxl" path="res://audio_graph/function_plotter.gd" id="1_ht3e8"]
+
+[node name="FunctionPlotter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ht3e8")
