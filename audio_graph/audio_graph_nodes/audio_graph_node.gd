@@ -26,3 +26,16 @@ func get_leaf_nodes() -> Array[AudioGraphNode]:
 func sample() -> float:
 	assert(false, "sample() not implemented in subclass")
 	return 0.0
+
+func _has_circular_connection(p_input: AudioGraphNode) -> bool:
+	if p_input == null:
+		return false
+
+	var stack = [p_input]
+	while not stack.is_empty():
+		var node = stack.pop_back()
+		if node == self:
+			return true
+		stack.append_array(node.get_leaf_nodes())
+
+	return false

@@ -48,8 +48,9 @@ var _phase: float = 0.0:
 func get_output() -> AudioGraphNode:
 	return generator
 
-func set_input(_index: int, _input: AudioGraphNode) -> void:
+func set_input(_index: int, _input: AudioGraphNode) -> bool:
 	assert(false, "FunctionGeneratorNode cannot have an input.")
+	return false
 
 func _ready() -> void:
 	frequency_spin.value = generator.frequency

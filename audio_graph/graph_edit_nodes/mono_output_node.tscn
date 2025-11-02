@@ -53,6 +53,7 @@ slot/2/right_color = Color(1, 1, 1, 1)
 slot/2/right_icon = null
 slot/2/draw_stylebox = true
 script = ExtResource("1_3ejgn")
+can_be_deleted = false
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2

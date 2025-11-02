@@ -20,7 +20,8 @@ var mix_rate: int = 44100 :
 		mix_rate_changed.emit(mix_rate)
 
 func _set_audio_graph_recursive(p_root: AudioGraphNode) -> void:
-	assert(p_root != null)
+	if p_root == null:
+		return
 
 	var s = [p_root]
 	while s.size() > 0:

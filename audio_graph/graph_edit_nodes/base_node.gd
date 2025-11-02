@@ -17,5 +17,6 @@ func get_output() -> AudioGraphNode:
 	assert(false, "get_output() not implemented in subclass")
 	return null
 
-func set_input(_index: int, _input: AudioGraphNode) -> void:
+func set_input(_index: int, _input: AudioGraphNode) -> bool:
 	assert(false, "set_input() not implemented in subclass")
+	return false

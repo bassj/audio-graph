@@ -102,12 +102,15 @@ func _init_connection_handlers() -> void:
 		if from_type != to_type:
 			return
 
-		for c in _get_incoming_connections_with_port(to_node, to_port):
-			disconnect_node(c["from_node"], c["from_port"], to_node, to_port)
+		if from_node == to_node: # Don't allow node to connect to itself
+			return
 
-		to_node_ref.set_input(to_port, from_node_ref.get_output())
+		var input_was_set = to_node_ref.set_input(to_port, from_node_ref.get_output())
 
-		connect_node(from_node, from_port, to_node, to_port)
+		if input_was_set:
+			for c in _get_incoming_connections_with_port(to_node, to_port):
+				disconnect_node(c["from_node"], c["from_port"], to_node, to_port)
+			connect_node(from_node, from_port, to_node, to_port)
 	)
 
 	disconnection_request.connect(func(from_node: StringName, from_port: int, to_node: StringName, to_port: int):

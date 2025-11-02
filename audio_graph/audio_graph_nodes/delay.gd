@@ -1,3 +1,4 @@
+@tool
 extends AudioGraphNode
 class_name Delay
 
@@ -12,10 +13,15 @@ var delay_buffer_size: int = 4410 :
 var _buffer := PackedFloat32Array()
 var _buffer_pointer: int = 0
 
-func set_input(p_input: AudioGraphNode) -> void:
+func set_input(p_input: AudioGraphNode) -> bool:
+	if _has_circular_connection(p_input):
+		return false
+
 	input = p_input
 	if audio_graph != null and p_input != null:
 		audio_graph.graph_branch_added.emit(input)
+
+	return true
 
 func get_leaf_nodes() -> Array[AudioGraphNode]:
 	var leaf_nodes := [] as Array[AudioGraphNode]
