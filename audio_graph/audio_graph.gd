@@ -2,9 +2,22 @@
 extends Resource
 class_name AudioGraph
 
+signal graph_changed(new_branch: AudioGraphNode)
+
 @export var graph_root: AudioGraphNode :
 	set(p_graph_root):
 		graph_root = p_graph_root
+		graph_changed.emit(graph_root)
+
+func _set_audio_graph_recursive(p_root: AudioGraphNode) -> void:
+	var s = [p_root]
+	while s.size() > 0:
+		var n = s.pop_front()
+		n.audio_graph = self
+		s.append_array(n.get_leaf_nodes())
+
+func _init() -> void:
+	graph_changed.connect(_set_audio_graph_recursive)
 
 func sample(increment: float) -> Vector2:
 	if not graph_root:
