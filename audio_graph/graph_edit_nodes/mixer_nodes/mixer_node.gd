@@ -1,4 +1,4 @@
-extends BaseNode
+extends "res://audio_graph/graph_edit_nodes/base_node.gd"
 
 @export var mixer := Mixer.new()
 

@@ -1,5 +1,4 @@
-extends BaseNode
-class_name MonoOutputNode
+extends "res://audio_graph/graph_edit_nodes/base_node.gd"
 
 signal input_changed(new_input: AudioGraphNode)
 
@@ -11,7 +10,7 @@ signal input_changed(new_input: AudioGraphNode)
 @onready var pause_button: Button = $Controls/PauseButton
 @onready var stop_button: Button = $Controls/StopButton
 
-var input: Resource = null
+var input: AudioGraphNode = null
 
 func set_audio_graph(audio_graph: AudioGraph) -> void:
 	audio_graph_player.audio_graph = audio_graph

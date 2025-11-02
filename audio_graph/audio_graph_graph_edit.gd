@@ -1,7 +1,10 @@
 extends GraphEdit
 
+const BaseNode = preload("res://audio_graph/graph_edit_nodes/base_node.gd");
+const MonoOutputNode = preload("res://audio_graph/graph_edit_nodes/mono_output_node.gd");
+
 const AudioFunctionGenerator: PackedScene = preload("res://audio_graph/graph_edit_nodes/audio_function_generator.tscn");
-const Mix2 = preload("res://audio_graph/graph_edit_nodes/mixer_nodes/mix2_node.tscn");
+const Mix2: PackedScene = preload("res://audio_graph/graph_edit_nodes/mixer_nodes/mix2_node.tscn");
 
 @export var audio_graph: AudioGraph
 
@@ -72,8 +75,8 @@ func _init_connection_handlers() -> void:
 		for node in nodes:
 			var child = get_node(NodePath(node))
 			if child and child.get("can_be_deleted"):
-				var connections = get_connection_list_from_node(node)
-				for c in connections:
+				var con_list = get_connection_list_from_node(node)
+				for c in con_list:
 					var to_node = c["to_node"]
 					var to_port = c["to_port"]
 					var to_node_ref = get_node(NodePath(to_node)) as BaseNode
