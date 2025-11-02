@@ -16,8 +16,8 @@ func set_input(index: int, input: AudioGraphNode) -> void:
 func get_leaf_nodes() -> Array[AudioGraphNode]:
     return inputs
 
-func sample(increment: float) -> float:
+func sample() -> float:
     var value = 0.0
     for input in inputs:
-        value += input.sample(increment)
+        value += input.sample()
     return value

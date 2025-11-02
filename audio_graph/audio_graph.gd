@@ -9,6 +9,8 @@ signal graph_changed(new_branch: AudioGraphNode)
 		graph_root = p_graph_root
 		graph_changed.emit(graph_root)
 
+var playback_position: float = 0.0
+
 func _set_audio_graph_recursive(p_root: AudioGraphNode) -> void:
 	var s = [p_root]
 	while s.size() > 0:
@@ -19,11 +21,13 @@ func _set_audio_graph_recursive(p_root: AudioGraphNode) -> void:
 func _init() -> void:
 	graph_changed.connect(_set_audio_graph_recursive)
 
-func sample(increment: float) -> Vector2:
+func sample(p_playback_position: float) -> Vector2:
+	playback_position = p_playback_position
+
 	if not graph_root:
 		return Vector2.ZERO
 
-	var _sample = graph_root.sample(increment)
+	var _sample = graph_root.sample()
 	return Vector2.ONE * _sample
 
 # var _left_delay := Delay.new()

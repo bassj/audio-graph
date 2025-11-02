@@ -38,9 +38,9 @@ var _amplitude: float = 0.0:
 
 var _phase: float = 0.0:
 	get():
-		return generator.phase
+		return generator.phase_offset
 	set(value):
-		generator.phase = value
+		generator.phase_offset = value
 		offset_spin.value = value
 		offset_slider.value = value
 		preview.queue_redraw()
@@ -56,8 +56,8 @@ func _ready() -> void:
 	frequency_slider.value = generator.frequency
 	amplitude_spin.value = generator.amplitude
 	amplitude_slider.value = generator.amplitude
-	offset_spin.value = generator.phase
-	offset_slider.value = generator.phase
+	offset_spin.value = generator.phase_offset
+	offset_slider.value = generator.phase_offset
 
 	frequency_spin.value_changed.connect(func (value):
 		_frequency = value
@@ -95,4 +95,4 @@ func _ready() -> void:
 	)
 
 	preview.function = func (phase: float) -> float:
-		return generator.sample_at(phase + generator.phase)
+		return generator.sample_at(phase + generator.phase_offset)

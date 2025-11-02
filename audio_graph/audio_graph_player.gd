@@ -5,6 +5,7 @@ class_name AudioGraphPlayer
 
 var playback: AudioStreamGeneratorPlayback
 
+var sample_count: int = 0
 func _process(delta: float) -> void:
 	if not has_stream_playback():
 		if playback != null:
@@ -15,12 +16,13 @@ func _process(delta: float) -> void:
 		playback = get_stream_playback() as AudioStreamGeneratorPlayback
 
 	var sample_rate: int = stream.get_mix_rate()
-	var increment = 1.0 / sample_rate
 	var samples_needed: int = ceil(sample_rate * delta)
 
 	for i in range(samples_needed):
-		var sample = audio_graph.sample(increment)
+		var playback_time := float(sample_count) / float(sample_rate)
+		var sample = audio_graph.sample(playback_time)
 		playback.push_frame(sample)
+		sample_count += 1
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings = PackedStringArray()
