@@ -5,6 +5,7 @@ const MonoOutputNode = preload("res://audio_graph/graph_edit_nodes/mono_output_n
 
 const AudioFunctionGenerator: PackedScene = preload("res://audio_graph/graph_edit_nodes/audio_function_generator.tscn");
 const Mix2: PackedScene = preload("res://audio_graph/graph_edit_nodes/mixer_nodes/mix2_node.tscn");
+const DelayNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/delay_node.tscn");
 
 @export var audio_graph: AudioGraph
 
@@ -12,6 +13,7 @@ const Mix2: PackedScene = preload("res://audio_graph/graph_edit_nodes/mixer_node
 
 var _node_types = {
 	"Generator": AudioFunctionGenerator,
+	"Delay": DelayNode,
 	"Mix": {
 		"Mix2": Mix2,
 	}
@@ -29,6 +31,7 @@ func _on_context_menu_id_pressed(p_context_menu: PopupMenu) -> Callable:
 	return func (id: int):
 		var value = p_context_menu.get_item_metadata(id)
 		var instance = value.instantiate()
+		instance.set_audio_graph(audio_graph)
 		add_child(instance)
 		instance.position_offset = get_local_mouse_position() + scroll_offset
 

@@ -12,8 +12,8 @@ signal input_changed(new_input: AudioGraphNode)
 
 var input: AudioGraphNode = null
 
-func set_audio_graph(audio_graph: AudioGraph) -> void:
-	audio_graph_player.audio_graph = audio_graph
+func set_audio_graph(p_audio_graph: AudioGraph) -> void:
+	audio_graph_player.audio_graph = p_audio_graph
 
 func get_audio_graph() -> AudioGraph:
 	return audio_graph_player.audio_graph

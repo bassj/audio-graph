@@ -16,6 +16,7 @@ func _process(delta: float) -> void:
 		playback = get_stream_playback() as AudioStreamGeneratorPlayback
 
 	var sample_rate: int = stream.get_mix_rate()
+	audio_graph.mix_rate = sample_rate
 	var samples_needed: int = ceil(sample_rate * delta)
 
 	for i in range(samples_needed):

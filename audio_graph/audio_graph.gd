@@ -2,16 +2,26 @@
 extends Resource
 class_name AudioGraph
 
-signal graph_changed(new_branch: AudioGraphNode)
+signal graph_branch_added(new_branch: AudioGraphNode)
+signal mix_rate_changed(new_mix_rate: int)
 
 @export var graph_root: AudioGraphNode :
 	set(p_graph_root):
 		graph_root = p_graph_root
-		graph_changed.emit(graph_root)
+		graph_branch_added.emit(graph_root)
 
 var playback_position: float = 0.0
 
+var mix_rate: int = 44100 :
+	set(p_mix_rate):
+		if p_mix_rate == mix_rate:
+			return
+		mix_rate = p_mix_rate
+		mix_rate_changed.emit(mix_rate)
+
 func _set_audio_graph_recursive(p_root: AudioGraphNode) -> void:
+	assert(p_root != null)
+
 	var s = [p_root]
 	while s.size() > 0:
 		var n = s.pop_front()
@@ -19,7 +29,7 @@ func _set_audio_graph_recursive(p_root: AudioGraphNode) -> void:
 		s.append_array(n.get_leaf_nodes())
 
 func _init() -> void:
-	graph_changed.connect(_set_audio_graph_recursive)
+	graph_branch_added.connect(_set_audio_graph_recursive)
 
 func sample(p_playback_position: float) -> Vector2:
 	playback_position = p_playback_position
