@@ -1,5 +1,0 @@
-[gd_scene format=3 uid="uid://c7ci4rkj46cuu"]
-
-[node name="ContextMenu" type="PopupMenu"]
-oversampling_override = 1.0
-visible = true
