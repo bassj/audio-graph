@@ -27,7 +27,7 @@ func sample(output_index: int) -> float:
 	var input = inputs.get(0)
 
 	if input != null:
-		val = input.node.sample(input.output_index)
+		val = input["node"].sample(input["output_index"])
 	_buffer[_buffer_pointer] = val
 
 	var sample_pointer = (_buffer_pointer + 1) % delay_buffer_size

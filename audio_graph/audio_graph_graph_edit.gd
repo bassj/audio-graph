@@ -4,10 +4,18 @@ const BaseNode = preload("res://audio_graph/graph_edit_nodes/base_node.gd");
 const MonoOutputNode = preload("res://audio_graph/graph_edit_nodes/mono_output_node.gd");
 
 const AudioFunctionGenerator: PackedScene = preload("res://audio_graph/graph_edit_nodes/audio_function_generator.tscn");
-const Mix2: PackedScene = preload("res://audio_graph/graph_edit_nodes/mixer_nodes/mix2_node.tscn");
+const Mix2Node: PackedScene = preload("res://audio_graph/graph_edit_nodes/mixer_nodes/mix2_node.tscn");
 const DelayNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/delay_node.tscn");
 
-@export var audio_graph: AudioGraph
+@export var audio_graph: AudioGraph :
+	set(p_audio_graph):
+		if audio_graph == p_audio_graph:
+			return
+
+		_clear_graph_nodes()
+		audio_graph = p_audio_graph
+		_init_graph_nodes()
+
 
 @onready var output_graph_node: MonoOutputNode = $MonoOutput
 
@@ -15,11 +23,16 @@ var _node_types = {
 	"Generator": AudioFunctionGenerator,
 	"Delay": DelayNode,
 	"Mix": {
-		"Mix2": Mix2,
+		"Mix2": Mix2Node,
 	}
 }
 
 var context_menu: PopupMenu
+
+func save_graph_edit_metadata() -> void:
+	for child in get_children():
+		if child is BaseNode:
+			child.save_editor_metadata()
 
 func _ready() -> void:
 	assert(audio_graph != null, "AudioGraphGraphEdit has no AudioGraph assigned to it.")
@@ -116,8 +129,8 @@ func _init_connection_handlers() -> void:
 	)
 
 	disconnection_request.connect(func(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
-		var from_node_ref = get_node(NodePath(from_node)) as GraphNode
-		var to_node_ref = get_node(NodePath(to_node)) as GraphNode
+		var from_node_ref = get_node(NodePath(from_node)) as BaseNode
+		var to_node_ref = get_node(NodePath(to_node)) as BaseNode
 
 		if not from_node_ref or not to_node_ref:
 			return
@@ -139,6 +152,36 @@ func _get_incoming_connections_with_port(node: StringName, port: int):
 		result.push_back(c)
 
 	return result
+
+func _clear_graph_nodes() -> void:
+	for child in get_children():
+		if child is BaseNode and child.can_be_deleted:
+			child.queue_free()
+
+var _audio_to_graph_node = {
+	"Generator": AudioFunctionGenerator,
+	"Delay": DelayNode,
+	"Mixer": Mix2Node,
+}
+
+func _init_graph_nodes() -> void:
+	if audio_graph == null:
+		return
+
+	var s = [audio_graph.graph_root]
+	while not s.is_empty():
+		var node = s.pop_back()
+		if node == null:
+			continue
+
+		var node_script_name = node.get_script().get_global_name()
+		var graph_node_scene = _audio_to_graph_node[node_script_name]
+		var graph_node = graph_node_scene.instantiate() as BaseNode
+		graph_node.set_audio_node(node)
+		add_child(graph_node)
+		graph_node.apply_editor_metadata()
+
+		s.append_array(node.get_leaf_nodes())
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings = PackedStringArray()

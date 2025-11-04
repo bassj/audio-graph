@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="AudioGraph" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://audio_graph/audio_graph_nodes/generator.gd" id="1_l7fam"]
+[ext_resource type="Script" path="res://audio_graph/audio_graph_nodes/mixer.gd" id="2_g71bp"]
+[ext_resource type="Script" path="res://audio_graph/audio_graph.gd" id="3_jkjdv"]
+
+[sub_resource type="Resource" id="Resource_rql3m"]
+script = ExtResource("1_l7fam")
+function = "sawtooth"
+frequency = 1.0
+amplitude = -1.0
+metadata/graph_edit_position = Vector2(-380, 400)
+
+[sub_resource type="Resource" id="Resource_wls1l"]
+script = ExtResource("1_l7fam")
+function = "sawtooth"
+frequency = 3.0
+metadata/graph_edit_position = Vector2(-380, -80)
+
+[sub_resource type="Resource" id="Resource_dos4t"]
+script = ExtResource("2_g71bp")
+inputs = Dictionary[int, Dictionary]({
+0: {
+"node": SubResource("Resource_wls1l"),
+"output_index": 0
+},
+1: {
+"node": SubResource("Resource_rql3m"),
+"output_index": 0
+}
+})
+
+[resource]
+script = ExtResource("3_jkjdv")
+graph_root = SubResource("Resource_dos4t")
+metadata/_custom_type_script = "uid://cbodbked54srs"

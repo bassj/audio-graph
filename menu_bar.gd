@@ -5,18 +5,19 @@ const FILE_LOAD: int = 1
 
 @export var audio_graph_edit: GraphEdit
 
-
 @onready var file_menu: PopupMenu = $File as PopupMenu
 
 var _file_dialog: FileDialog
 
 func _save_file(path: String) -> void:
+	audio_graph_edit.save_graph_edit_metadata()
 	var err = ResourceSaver.save(audio_graph_edit.audio_graph, path, ResourceSaver.FLAG_CHANGE_PATH)
 	if err != OK:
 		push_error("Failed to save Audio Graph to %s" % path)
 
 func _load_file(path: String) -> void:
-	print(path)
+	var audio_graph = load(path)
+	audio_graph_edit.audio_graph = audio_graph
 
 func _show_dialog(file_selected: Callable) -> void:
 	_file_dialog.popup_centered()

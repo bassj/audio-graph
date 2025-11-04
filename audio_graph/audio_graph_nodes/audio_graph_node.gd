@@ -6,7 +6,8 @@ var audio_graph: AudioGraph = null:
 	set = set_audio_graph,
 	get = get_audio_graph
 
-var inputs: Dictionary[int, AudioGraphNodeOutput] = {}
+@export
+var inputs: Dictionary[int, Dictionary] = {}
 
 var phase := 0.0:
 	set(p_phase):
@@ -25,7 +26,7 @@ func get_audio_graph() -> AudioGraph:
 func get_leaf_nodes() -> Array[AudioGraphNode]:
 	var nodes: Array[AudioGraphNode] = []
 	for output in inputs.values():
-		nodes.append(output.node)
+		nodes.append(output["node"])
 	return nodes
 
 func set_input(index: int, input: AudioGraphNode, output_index: int = 0) -> bool:
@@ -36,7 +37,10 @@ func set_input(index: int, input: AudioGraphNode, output_index: int = 0) -> bool
 		inputs.erase(index)
 		return true
 
-	inputs[index] = AudioGraphNodeOutput.new(input, output_index)
+	inputs[index] = {
+		"node": input,
+		"output_index": output_index,
+	}
 
 	if audio_graph:
 		audio_graph.graph_branch_added.emit(input)
@@ -59,11 +63,3 @@ func _has_circular_connection(p_input: AudioGraphNode) -> bool:
 		stack.append_array(node.get_leaf_nodes())
 
 	return false
-
-class AudioGraphNodeOutput:
-	var node: AudioGraphNode
-	var output_index: int = 0
-
-	func _init(p_node: AudioGraphNode, p_output_index: int = 0) -> void:
-		node = p_node
-		output_index = p_output_index

@@ -18,32 +18,46 @@ extends "res://audio_graph/graph_edit_nodes/base_node.gd"
 	0.0
 )
 
+func _update_frequency_ui() -> void:
+	frequency_spin.value = generator.frequency
+	frequency_slider.value = generator.frequency
 var _frequency: float = 0.0:
 	get():
 		return generator.frequency
 	set(value):
 		generator.frequency = value
-		frequency_spin.value = value
-		frequency_slider.value = value
+		_update_frequency_ui()
 		preview.queue_redraw()
 
+func _update_amplitude_ui() -> void:
+	amplitude_spin.value = generator.amplitude
+	amplitude_slider.value = generator.amplitude
 var _amplitude: float = 0.0:
 	get():
 		return generator.amplitude
 	set(value):
 		generator.amplitude = value
-		amplitude_spin.value = value
-		amplitude_slider.value = value
+		_update_amplitude_ui()
 		preview.queue_redraw()
 
+func _update_phase_ui() -> void:
+	offset_spin.value = generator.phase_offset
+	offset_slider.value = generator.phase_offset
 var _phase: float = 0.0:
 	get():
 		return generator.phase_offset
 	set(value):
 		generator.phase_offset = value
-		offset_spin.value = value
-		offset_slider.value = value
+		_update_phase_ui()
 		preview.queue_redraw()
+
+func save_editor_metadata() -> void:
+	generator.set_meta("graph_edit_position", position_offset)
+
+func apply_editor_metadata() -> void:
+	var pos = generator.get_meta("graph_edit_position", null)
+	if pos != null:
+		position_offset = pos
 
 func get_audio_node() -> AudioGraphNode:
 	return generator
@@ -53,12 +67,10 @@ func set_input(_index: int, _input: AudioGraphNode, _output_index: int) -> bool:
 	return false
 
 func _ready() -> void:
-	frequency_spin.value = generator.frequency
-	frequency_slider.value = generator.frequency
-	amplitude_spin.value = generator.amplitude
-	amplitude_slider.value = generator.amplitude
-	offset_spin.value = generator.phase_offset
-	offset_slider.value = generator.phase_offset
+	_update_frequency_ui()
+	_update_amplitude_ui()
+	_update_phase_ui()
+
 	frequency_spin.value_changed.connect(func (value):
 		_frequency = value
 	)
