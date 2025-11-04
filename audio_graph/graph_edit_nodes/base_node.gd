@@ -13,10 +13,13 @@ func set_audio_graph(p_audio_graph: AudioGraph) -> void:
 func get_audio_graph() -> AudioGraph:
 	return audio_graph
 
-func get_output() -> AudioGraphNode:
-	assert(false, "get_output() not implemented in subclass")
+func get_audio_node() -> AudioGraphNode:
+	assert(false, "get_audio_node() not implemented in subclass")
 	return null
 
-func set_input(_index: int, _input: AudioGraphNode) -> bool:
+func set_input(_index: int, _input: AudioGraphNode, _output_index: int) -> bool:
 	assert(false, "set_input() not implemented in subclass")
 	return false
+
+func clear_input(index: int) -> void:
+	set_input(index, null, 0)

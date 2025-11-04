@@ -18,11 +18,11 @@ func set_audio_graph(p_audio_graph: AudioGraph) -> void:
 func get_audio_graph() -> AudioGraph:
 	return audio_graph_player.audio_graph
 
-func get_output() -> AudioGraphNode:
+func get_audio_node() -> AudioGraphNode:
 	assert(false, "MonoOutputNode does not have an output.")
 	return null
 
-func set_input(index: int, p_input: AudioGraphNode) -> bool:
+func set_input(index: int, p_input: AudioGraphNode, _output_index: int) -> bool:
 	assert(index == 0, "MonoOutputNode only supports a single input at index 0.")
 
 	if input == p_input:

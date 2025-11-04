@@ -38,7 +38,7 @@ func sample(p_playback_position: float) -> Vector2:
 	if not graph_root:
 		return Vector2.ZERO
 
-	var _sample = graph_root.sample()
+	var _sample = graph_root.sample(0)
 	return Vector2.ONE * _sample
 
 # var _left_delay := Delay.new()

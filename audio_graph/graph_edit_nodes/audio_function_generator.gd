@@ -45,10 +45,10 @@ var _phase: float = 0.0:
 		offset_slider.value = value
 		preview.queue_redraw()
 
-func get_output() -> AudioGraphNode:
+func get_audio_node() -> AudioGraphNode:
 	return generator
 
-func set_input(_index: int, _input: AudioGraphNode) -> bool:
+func set_input(_index: int, _input: AudioGraphNode, _output_index: int) -> bool:
 	assert(false, "FunctionGeneratorNode cannot have an input.")
 	return false
 
@@ -59,7 +59,6 @@ func _ready() -> void:
 	amplitude_slider.value = generator.amplitude
 	offset_spin.value = generator.phase_offset
 	offset_slider.value = generator.phase_offset
-
 	frequency_spin.value_changed.connect(func (value):
 		_frequency = value
 	)

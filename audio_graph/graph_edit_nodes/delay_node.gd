@@ -14,12 +14,12 @@ var _delay_length: float = 0.1:
 		delay_spin.value = value
 		delay_slider.value = value
 
-func get_output() -> AudioGraphNode:
+func get_audio_node() -> AudioGraphNode:
 	return delay
 
-func set_input(_index: int, input: AudioGraphNode) -> bool:
-	assert(_index == 0, "DelayNode only supports one input.")
-	return delay.set_input(input)
+func set_input(index: int, input: AudioGraphNode, output_index: int = 0) -> bool:
+	assert(index == 0, "DelayNode only supports one input.")
+	return delay.set_input(0, input, output_index)
 
 func _ready() -> void:
 	delay_spin.value = _delay_length

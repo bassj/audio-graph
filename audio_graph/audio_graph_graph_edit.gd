@@ -9,7 +9,7 @@ const DelayNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/delay
 
 @export var audio_graph: AudioGraph
 
-@onready var output_graph_node : MonoOutputNode = $MonoOutput
+@onready var output_graph_node: MonoOutputNode = $MonoOutput
 
 var _node_types = {
 	"Generator": AudioFunctionGenerator,
@@ -28,7 +28,7 @@ func _ready() -> void:
 	_init_connection_handlers()
 
 func _on_context_menu_id_pressed(p_context_menu: PopupMenu) -> Callable:
-	return func (id: int):
+	return func(id: int):
 		var value = p_context_menu.get_item_metadata(id)
 		var instance = value.instantiate()
 		instance.set_audio_graph(audio_graph)
@@ -61,7 +61,7 @@ func _init_context_menu() -> void:
 
 	add_child(context_menu)
 
-	popup_request.connect(func (at_position):
+	popup_request.connect(func(at_position):
 		context_menu.set_position(at_position)
 		context_menu.show()
 	)
@@ -69,12 +69,12 @@ func _init_context_menu() -> void:
 func _init_output_node() -> void:
 	output_graph_node.set_audio_graph(audio_graph)
 
-	output_graph_node.input_changed.connect(func (new_input: AudioGraphNode):
+	output_graph_node.input_changed.connect(func(new_input: AudioGraphNode):
 		audio_graph.graph_root = new_input
 	)
 
 func _init_connection_handlers() -> void:
-	delete_nodes_request.connect(func (nodes: Array):
+	delete_nodes_request.connect(func(nodes: Array):
 		for node in nodes:
 			var child = get_node(NodePath(node))
 			if child and child.get("can_be_deleted"):
@@ -83,20 +83,18 @@ func _init_connection_handlers() -> void:
 					var to_node = c["to_node"]
 					var to_port = c["to_port"]
 					var to_node_ref = get_node(NodePath(to_node)) as BaseNode
-					to_node_ref.set_input(to_port, null)
+					to_node_ref.clear_input(to_port)
 				child.queue_free()
 	)
 
 	connection_request.connect(func(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
-		var from_node_ref = get_node(NodePath(from_node)) as GraphNode
-		var to_node_ref = get_node(NodePath(to_node)) as GraphNode
+		var from_node_ref = get_node(NodePath(from_node)) as BaseNode
+		var to_node_ref = get_node(NodePath(to_node)) as BaseNode
 
 		if not from_node_ref or not to_node_ref:
 			return
 
-		# var from_slot = from_node_ref.get_output_port_slot(from_port)
 		var from_type = from_node_ref.get_output_port_type(from_port)
-		# var to_slot = to_node_ref.get_input_port_slot(to_port)
 		var to_type = to_node_ref.get_input_port_type(to_port)
 
 		if from_type != to_type:
@@ -105,7 +103,11 @@ func _init_connection_handlers() -> void:
 		if from_node == to_node: # Don't allow node to connect to itself
 			return
 
-		var input_was_set = to_node_ref.set_input(to_port, from_node_ref.get_output())
+		var input_was_set = to_node_ref.set_input(
+			to_port,
+			from_node_ref.get_audio_node(),
+			from_port,
+		)
 
 		if input_was_set:
 			for c in _get_incoming_connections_with_port(to_node, to_port):
