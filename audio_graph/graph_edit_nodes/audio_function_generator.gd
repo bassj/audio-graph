@@ -59,6 +59,10 @@ func apply_editor_metadata() -> void:
 	if pos != null:
 		position_offset = pos
 
+func set_audio_node(node: AudioGraphNode) -> void:
+	assert(node is Generator, "AudioGraphGraphEdit can only set Generator nodes as its audio node.")
+	generator = node
+
 func get_audio_node() -> AudioGraphNode:
 	return generator
 

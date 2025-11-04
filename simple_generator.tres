@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AudioGraph" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://audio_graph/audio_graph_nodes/generator.gd" id="1_berrq"]
+[ext_resource type="Script" path="res://audio_graph/audio_graph.gd" id="2_fgpve"]
+
+[sub_resource type="Resource" id="Resource_b28k5"]
+script = ExtResource("1_berrq")
+function = "sine"
+metadata/graph_edit_position = Vector2(-120, -20)
+
+[resource]
+script = ExtResource("2_fgpve")
+graph_root = SubResource("Resource_b28k5")
+metadata/_custom_type_script = "uid://cbodbked54srs"
+metadata/output_graph_edit_position = Vector2(597, 305)

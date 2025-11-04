@@ -14,6 +14,18 @@ var _delay_length: float = 0.1:
 		delay_spin.value = value
 		delay_slider.value = value
 
+func save_editor_metadata() -> void:
+	delay.set_meta("graph_edit_position", position_offset)
+
+func apply_editor_metadata() -> void:
+	var pos = delay.get_meta("graph_edit_position", null)
+	if pos != null:
+		position_offset = pos
+
+func set_audio_node(node: AudioGraphNode) -> void:
+	assert(node is Delay, "Node must be of type Delay.")
+	delay = node
+
 func get_audio_node() -> AudioGraphNode:
 	return delay
 

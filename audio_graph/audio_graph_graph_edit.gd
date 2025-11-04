@@ -7,14 +7,14 @@ const AudioFunctionGenerator: PackedScene = preload("res://audio_graph/graph_edi
 const Mix2Node: PackedScene = preload("res://audio_graph/graph_edit_nodes/mixer_nodes/mix2_node.tscn");
 const DelayNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/delay_node.tscn");
 
-@export var audio_graph: AudioGraph :
+@export var audio_graph: AudioGraph:
 	set(p_audio_graph):
 		if audio_graph == p_audio_graph:
 			return
 
 		_clear_graph_nodes()
 		audio_graph = p_audio_graph
-		_init_graph_nodes()
+		_init_graph_nodes.call_deferred()
 
 
 @onready var output_graph_node: MonoOutputNode = $MonoOutput
@@ -82,8 +82,9 @@ func _init_context_menu() -> void:
 func _init_output_node() -> void:
 	output_graph_node.set_audio_graph(audio_graph)
 
-	output_graph_node.input_changed.connect(func(new_input: AudioGraphNode):
+	output_graph_node.input_changed.connect(func(new_input: AudioGraphNode, output_index: int):
 		audio_graph.graph_root = new_input
+		audio_graph.graph_root_output_index = output_index
 	)
 
 func _init_connection_handlers() -> void:
@@ -165,9 +166,10 @@ var _audio_to_graph_node = {
 }
 
 func _init_graph_nodes() -> void:
-	if audio_graph == null:
+	if audio_graph == null or audio_graph.graph_root == null:
 		return
 
+	var _node_to_graph = {}
 	var s = [audio_graph.graph_root]
 	while not s.is_empty():
 		var node = s.pop_back()
@@ -177,11 +179,41 @@ func _init_graph_nodes() -> void:
 		var node_script_name = node.get_script().get_global_name()
 		var graph_node_scene = _audio_to_graph_node[node_script_name]
 		var graph_node = graph_node_scene.instantiate() as BaseNode
+		_node_to_graph[node] = graph_node
+		graph_node.set_audio_graph(audio_graph)
 		graph_node.set_audio_node(node)
 		add_child(graph_node)
 		graph_node.apply_editor_metadata()
-
 		s.append_array(node.get_leaf_nodes())
+
+	output_graph_node.set_audio_graph(audio_graph)
+	output_graph_node.apply_editor_metadata()
+	connect_node(
+		_node_to_graph[audio_graph.graph_root].get_name(), 0,
+		output_graph_node.get_name(), 0
+	)
+
+	for audio_graph_node in get_children():
+		if (not audio_graph_node is BaseNode) or (audio_graph_node is MonoOutputNode):
+			continue
+
+		if audio_graph_node is MonoOutputNode:
+			continue
+
+		var audio_node = audio_graph_node.get_audio_node()
+		for input_index in audio_node.inputs.keys():
+			var input = audio_node.inputs[input_index]
+			var input_node = input["node"]
+			var output_index = input["output_index"]
+			var input_audio_graph_node = _node_to_graph.get(input_node)
+			assert(input_audio_graph_node != null, "Input audio graph node not found.")
+			connect_node(
+				input_audio_graph_node.get_name(),
+				output_index,
+				audio_graph_node.get_name(),
+				input_index
+			)
+
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings = PackedStringArray()

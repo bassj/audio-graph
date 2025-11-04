@@ -4,24 +4,24 @@
 [ext_resource type="Script" path="res://audio_graph/audio_graph_nodes/mixer.gd" id="2_g71bp"]
 [ext_resource type="Script" path="res://audio_graph/audio_graph.gd" id="3_jkjdv"]
 
+[sub_resource type="Resource" id="Resource_dos4t"]
+script = ExtResource("1_l7fam")
+function = "sawtooth"
+frequency = 3.0
+metadata/graph_edit_position = Vector2(-760, -600)
+
 [sub_resource type="Resource" id="Resource_rql3m"]
 script = ExtResource("1_l7fam")
 function = "sawtooth"
 frequency = 1.0
 amplitude = -1.0
-metadata/graph_edit_position = Vector2(-380, 400)
+metadata/graph_edit_position = Vector2(-720, -120)
 
-[sub_resource type="Resource" id="Resource_wls1l"]
-script = ExtResource("1_l7fam")
-function = "sawtooth"
-frequency = 3.0
-metadata/graph_edit_position = Vector2(-380, -80)
-
-[sub_resource type="Resource" id="Resource_dos4t"]
+[sub_resource type="Resource" id="Resource_loym7"]
 script = ExtResource("2_g71bp")
 inputs = Dictionary[int, Dictionary]({
 0: {
-"node": SubResource("Resource_wls1l"),
+"node": SubResource("Resource_dos4t"),
 "output_index": 0
 },
 1: {
@@ -29,8 +29,10 @@ inputs = Dictionary[int, Dictionary]({
 "output_index": 0
 }
 })
+metadata/graph_edit_position = Vector2(-180, -20)
 
 [resource]
 script = ExtResource("3_jkjdv")
-graph_root = SubResource("Resource_dos4t")
+graph_root = SubResource("Resource_loym7")
 metadata/_custom_type_script = "uid://cbodbked54srs"
+metadata/output_graph_edit_position = Vector2(260, 320)

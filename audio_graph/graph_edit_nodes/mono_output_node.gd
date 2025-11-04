@@ -10,32 +10,35 @@ signal input_changed(new_input: AudioGraphNode)
 @onready var pause_button: Button = $Controls/PauseButton
 @onready var stop_button: Button = $Controls/StopButton
 
-var input: AudioGraphNode = null
-
 func set_audio_graph(p_audio_graph: AudioGraph) -> void:
 	audio_graph_player.audio_graph = p_audio_graph
 
 func get_audio_graph() -> AudioGraph:
 	return audio_graph_player.audio_graph
 
+func save_editor_metadata() -> void:
+	audio_graph.set_meta("output_graph_edit_position", position_offset)
+
+func apply_editor_metadata() -> void:
+	var pos = audio_graph.get_meta("output_graph_edit_position", null)
+	if pos != null:
+		position_offset = pos
+
+func set_audio_node(_node: AudioGraphNode) -> void:
+	assert(false, "MonoOutputNode does not have an audio node.")
+
 func get_audio_node() -> AudioGraphNode:
 	assert(false, "MonoOutputNode does not have an output.")
 	return null
 
-func set_input(index: int, p_input: AudioGraphNode, _output_index: int) -> bool:
+func set_input(index: int, p_input: AudioGraphNode, output_index: int) -> bool:
 	assert(index == 0, "MonoOutputNode only supports a single input at index 0.")
-
-	if input == p_input:
-		return true
-
-	input = p_input
-	input_changed.emit(input)
-
+	input_changed.emit(p_input, output_index)
 	return true
 
 func _ready() -> void:
 	play_button.pressed.connect(func ():
-		if input == null:
+		if audio_graph.graph_root == null:
 			return
 		audio_graph_player.play()
 	)

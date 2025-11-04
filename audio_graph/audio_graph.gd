@@ -10,6 +10,8 @@ signal mix_rate_changed(new_mix_rate: int)
 		graph_root = p_graph_root
 		graph_branch_added.emit(graph_root)
 
+@export var graph_root_output_index: int = 0
+
 var playback_position: float = 0.0
 
 var mix_rate: int = 44100 :
@@ -19,7 +21,7 @@ var mix_rate: int = 44100 :
 		mix_rate = p_mix_rate
 		mix_rate_changed.emit(mix_rate)
 
-func _set_audio_graph_recursive(p_root: AudioGraphNode) -> void:
+func _set_audio_graph_recursive(p_root: AudioGraphNode = graph_root) -> void:
 	if p_root == null:
 		return
 
@@ -38,7 +40,7 @@ func sample(p_playback_position: float) -> Vector2:
 	if not graph_root:
 		return Vector2.ZERO
 
-	var _sample = graph_root.sample(0)
+	var _sample = graph_root.sample(graph_root_output_index)
 	return Vector2.ONE * _sample
 
 # var _left_delay := Delay.new()
