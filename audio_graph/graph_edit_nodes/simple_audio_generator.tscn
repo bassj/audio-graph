@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://m8oprnrkwfr2"]
+[gd_scene load_steps=4 format=3 uid="uid://m8oprnrkwfr2"]
 
 [ext_resource type="Script" uid="uid://bcf78bedm18b6" path="res://audio_graph/graph_edit_nodes/simple_audio_generator.gd" id="1_7llxx"]
 [ext_resource type="Script" uid="uid://d0oca172jemxl" path="res://audio_graph/function_plotter.gd" id="2_wgjvp"]
+[ext_resource type="PackedScene" uid="uid://brpmpv3qjd622" path="res://audio_graph/graph_edit_nodes/numeric_value_in.tscn" id="3_wgjvp"]
 
-[node name="SimpleAudioGenerator" type="GraphNode"]
+[node name="SimpleAudioGenerator" type="GraphNode" unique_id=126677424]
 offset_right = 256.0
 offset_bottom = 320.0
 title = "Simple Audio Generator"
@@ -45,22 +46,22 @@ slot/3/right_icon = null
 slot/3/draw_stylebox = true
 script = ExtResource("1_7llxx")
 
-[node name="AudioFunctionOut" type="MarginContainer" parent="."]
+[node name="AudioFunctionOut" type="MarginContainer" parent="." unique_id=196533389]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="AudioFunctionOut"]
+[node name="VBoxContainer" type="VBoxContainer" parent="AudioFunctionOut" unique_id=372902136]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="AudioFunctionOut/VBoxContainer"]
+[node name="Control" type="Control" parent="AudioFunctionOut/VBoxContainer" unique_id=641952991]
 clip_contents = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="FunctionPlotter" type="Control" parent="AudioFunctionOut/VBoxContainer/Control"]
+[node name="FunctionPlotter" type="Control" parent="AudioFunctionOut/VBoxContainer/Control" unique_id=224228657]
 custom_minimum_size = Vector2(0, 100)
 anchors_preset = 0
 offset_right = 200.0
@@ -68,7 +69,7 @@ offset_bottom = 100.0
 script = ExtResource("2_wgjvp")
 metadata/_custom_type_script = "uid://d0oca172jemxl"
 
-[node name="FunctionTypeOption" type="OptionButton" parent="AudioFunctionOut/VBoxContainer"]
+[node name="FunctionTypeOption" type="OptionButton" parent="AudioFunctionOut/VBoxContainer" unique_id=1476493850]
 layout_mode = 2
 selected = 0
 item_count = 3
@@ -79,54 +80,25 @@ popup/item_1/id = 1
 popup/item_2/text = "Sawtooth"
 popup/item_2/id = 2
 
-[node name="FunctionFrequencyIn" type="VBoxContainer" parent="."]
+[node name="FunctionFrequencyIn" parent="." unique_id=1245364079 instance=ExtResource("3_wgjvp")]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="FunctionFrequencyIn"]
-layout_mode = 2
-text = "Frequency (hz)"
-
-[node name="SpinBox" type="SpinBox" parent="FunctionFrequencyIn"]
-layout_mode = 2
+value = 440.0
+min_value = 0.0
 max_value = 44100.0
-step = 0.1
+step = 1.0
+label = "Frequency"
+units = "hz"
 
-[node name="HSlider" type="HSlider" parent="FunctionFrequencyIn"]
+[node name="FunctionAmplitudeIn" parent="." unique_id=320564818 instance=ExtResource("3_wgjvp")]
 layout_mode = 2
-max_value = 44100.0
-
-[node name="FunctionAmplitudeIn" type="VBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="FunctionAmplitudeIn"]
-layout_mode = 2
-text = "Amplitude"
-
-[node name="SpinBox" type="SpinBox" parent="FunctionAmplitudeIn"]
-layout_mode = 2
+value = 1.0
 min_value = -4.0
 max_value = 4.0
 step = 0.01
+label = "Amplitude"
 
-[node name="HSlider" type="HSlider" parent="FunctionAmplitudeIn"]
+[node name="FunctionOffsetIn" parent="." unique_id=799036361 instance=ExtResource("3_wgjvp")]
 layout_mode = 2
-min_value = -4.0
-max_value = 4.0
+min_value = 0.0
 step = 0.01
-
-[node name="FunctionOffsetIn" type="VBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="FunctionOffsetIn"]
-layout_mode = 2
-text = "Offset"
-
-[node name="SpinBox" type="SpinBox" parent="FunctionOffsetIn"]
-layout_mode = 2
-max_value = 1.0
-step = 0.01
-
-[node name="HSlider" type="HSlider" parent="FunctionOffsetIn"]
-layout_mode = 2
-max_value = 1.0
-step = 0.001
+label = "Offset"

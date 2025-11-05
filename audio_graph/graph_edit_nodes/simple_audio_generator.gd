@@ -2,16 +2,15 @@ extends "res://audio_graph/graph_edit_nodes/base_node.gd"
 
 @onready var preview: FunctionPlotter = $AudioFunctionOut/VBoxContainer/Control/FunctionPlotter
 
-@onready var frequency_spin: SpinBox = $FunctionFrequencyIn/SpinBox
-@onready var frequency_slider: HSlider = $FunctionFrequencyIn/HSlider
-
-@onready var amplitude_spin: SpinBox = $FunctionAmplitudeIn/SpinBox
-@onready var amplitude_slider: HSlider = $FunctionAmplitudeIn/HSlider
-
-@onready var offset_spin: SpinBox = $FunctionOffsetIn/SpinBox
-@onready var offset_slider: HSlider = $FunctionOffsetIn/HSlider
+@onready var frequency_input: NumberInput = $FunctionFrequencyIn
+@onready var amplitude_input: NumberInput = $FunctionAmplitudeIn
+@onready var phase_input: NumberInput = $FunctionOffsetIn
 
 @onready var function_option: OptionButton = $AudioFunctionOut/VBoxContainer/FunctionTypeOption
+
+const FUNCTION_SINE := 0
+const FUNCTION_SQUARE := 1
+const FUNCTION_SAWTOOTH := 2
 
 #region Properties
 
@@ -20,37 +19,28 @@ extends "res://audio_graph/graph_edit_nodes/base_node.gd"
 	0.0
 )
 
-func _update_frequency_ui() -> void:
-	frequency_spin.value = generator.frequency
-	frequency_slider.value = generator.frequency
 var _frequency: float = 0.0:
 	get():
 		return generator.frequency
 	set(value):
 		generator.frequency = value
-		_update_frequency_ui()
+		frequency_input.value = value
 		preview.queue_redraw()
 
-func _update_amplitude_ui() -> void:
-	amplitude_spin.value = generator.amplitude
-	amplitude_slider.value = generator.amplitude
 var _amplitude: float = 0.0:
 	get():
 		return generator.amplitude
 	set(value):
 		generator.amplitude = value
-		_update_amplitude_ui()
+		amplitude_input.value = value
 		preview.queue_redraw()
 
-func _update_phase_ui() -> void:
-	offset_spin.value = generator.phase_offset
-	offset_slider.value = generator.phase_offset
 var _phase: float = 0.0:
 	get():
 		return generator.phase_offset
 	set(value):
 		generator.phase_offset = value
-		_update_phase_ui()
+		phase_input.value = value
 		preview.queue_redraw()
 
 #endregion
@@ -79,41 +69,30 @@ func set_input(_index: int, _input: AudioGraphNode, _output_index: int) -> bool:
 #endregion
 
 func _ready() -> void:
-	_update_frequency_ui()
-	_update_amplitude_ui()
-	_update_phase_ui()
+	_frequency = generator.frequency
+	_amplitude = generator.amplitude
+	_phase = generator.phase_offset
 
-	frequency_spin.value_changed.connect(func (value):
-		_frequency = value
-	)
-	frequency_slider.value_changed.connect(func (value):
+	frequency_input.value_changed.connect(func (value):
 		_frequency = value
 	)
 
-	amplitude_spin.value_changed.connect(func (value):
+	amplitude_input.value_changed.connect(func (value):
 		_amplitude = value
 
 	)
-	amplitude_slider.value_changed.connect(func (value):
-		_amplitude = value
-	)
 
-	offset_spin.value_changed.connect(func (value):
-		_phase = value
-	)
-
-
-	offset_slider.value_changed.connect(func (value):
+	phase_input.value_changed.connect(func (value):
 		_phase = value
 	)
 
 	function_option.item_selected.connect(func (index):
 		match index:
-			0:
+			FUNCTION_SINE:
 				generator.function = "sine"
-			1:
+			FUNCTION_SQUARE:
 				generator.function = "square"
-			2:
+			FUNCTION_SAWTOOTH:
 				generator.function = "sawtooth"
 		preview.queue_redraw()
 	)

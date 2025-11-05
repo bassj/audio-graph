@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://brpmpv3qjd622"]
+
+[ext_resource type="Script" uid="uid://csfyd16y6aaar" path="res://audio_graph/graph_edit_nodes/numeric_value_in.gd" id="1_rk23x"]
+
+[node name="NumericValueIn" type="VBoxContainer" unique_id=1245364079]
+script = ExtResource("1_rk23x")
+
+[node name="Label" type="Label" parent="." unique_id=170180359]
+layout_mode = 2
+text = "Number Input"
+
+[node name="SpinBox" type="SpinBox" parent="." unique_id=144486197]
+layout_mode = 2
+min_value = -1.0
+max_value = 1.0
+step = 0.1
+
+[node name="HSlider" type="HSlider" parent="." unique_id=25556578]
+layout_mode = 2
+min_value = -1.0
+max_value = 1.0
+step = 0.1
