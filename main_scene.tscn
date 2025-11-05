@@ -32,12 +32,12 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" unique_id=1411455252]
 script = SubResource("GDScript_0hol4")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=26864951]
 
-[node name="GraphEdit" type="GraphEdit" parent="CanvasLayer"]
+[node name="GraphEdit" type="GraphEdit" parent="CanvasLayer" unique_id=752129595]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -49,7 +49,7 @@ show_menu = false
 script = ExtResource("1_wtcfe")
 audio_graph = SubResource("Resource_gyfs4")
 
-[node name="MonoOutput" parent="CanvasLayer/GraphEdit" instance=ExtResource("2_0e48y")]
+[node name="MonoOutput" parent="CanvasLayer/GraphEdit" unique_id=1247753932 instance=ExtResource("2_0e48y")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.60200006
@@ -62,11 +62,11 @@ offset_right = 43.49591
 offset_bottom = 72.63995
 position_offset = Vector2(597, 305)
 
-[node name="Panel" type="Panel" parent="CanvasLayer"]
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=2043421403]
 offset_right = 199.0
 offset_bottom = 28.0
 
-[node name="MenuBar" type="MenuBar" parent="CanvasLayer/Panel" node_paths=PackedStringArray("audio_graph_edit")]
+[node name="MenuBar" type="MenuBar" parent="CanvasLayer/Panel" unique_id=1097691819 node_paths=PackedStringArray("audio_graph_edit")]
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 27.0
@@ -74,7 +74,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_nfk4m")
 script = ExtResource("4_hq1ik")
 audio_graph_edit = NodePath("../../GraphEdit")
 
-[node name="File" type="PopupMenu" parent="CanvasLayer/Panel/MenuBar"]
+[node name="File" type="PopupMenu" parent="CanvasLayer/Panel/MenuBar" unique_id=1733441243]
 item_count = 2
 item_0/text = "Save"
 item_0/icon = ExtResource("1_8mm7a")
