@@ -3,9 +3,11 @@ extends GraphNode
 
 @export var can_be_deleted: bool = true
 
-var audio_graph: AudioGraph = null :
+var audio_graph: AudioGraph = null:
 	set = set_audio_graph,
 	get = get_audio_graph
+
+#region Virtual Methods
 
 func save_editor_metadata() -> void:
 	return
@@ -32,3 +34,33 @@ func set_input(_index: int, _input: AudioGraphNode, _output_index: int) -> bool:
 
 func clear_input(index: int) -> void:
 	set_input(index, null, 0)
+
+#endregion
+
+#region Utility Methods
+
+var _debounce_timers = {}
+func _debounce(fn: Callable, delay_ms: int) -> Callable:
+	var timer_key = str(fn)
+
+	if not _debounce_timers.has(timer_key):
+		var _timer = Timer.new()
+		_timer.wait_time = float(delay_ms) / 1000.0
+		_timer.one_shot = true
+		add_child(_timer)
+		_debounce_timers[timer_key] = _timer
+
+	var timer = _debounce_timers.get(timer_key, null)
+
+	return func(...args):
+		_disconnect_all(timer.timeout)
+		timer.timeout.connect(func ():
+			return fn.callv(args)
+		)
+		timer.start()
+
+func _disconnect_all(_signal: Signal) -> void:
+	for connection in _signal.get_connections():
+		_signal.disconnect(connection["callable"])
+
+#endregion
