@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://m8oprnrkwfr2"]
 
-[ext_resource type="Script" uid="uid://bcf78bedm18b6" path="res://audio_graph/graph_edit_nodes/audio_function_generator.gd" id="1_0ftbn"]
-[ext_resource type="Script" uid="uid://d0oca172jemxl" path="res://audio_graph/function_plotter.gd" id="2_unrnq"]
+[ext_resource type="Script" uid="uid://bcf78bedm18b6" path="res://audio_graph/graph_edit_nodes/simple_audio_generator.gd" id="1_7llxx"]
+[ext_resource type="Script" uid="uid://d0oca172jemxl" path="res://audio_graph/function_plotter.gd" id="2_wgjvp"]
 
-[node name="AudioFunctionGenerator" type="GraphNode"]
+[node name="SimpleAudioGenerator" type="GraphNode"]
 offset_right = 256.0
 offset_bottom = 320.0
-title = "Function Generator"
+title = "Simple Audio Generator"
 slot/0/left_enabled = false
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)
@@ -43,7 +43,7 @@ slot/3/right_type = 0
 slot/3/right_color = Color(1, 1, 1, 1)
 slot/3/right_icon = null
 slot/3/draw_stylebox = true
-script = ExtResource("1_0ftbn")
+script = ExtResource("1_7llxx")
 
 [node name="AudioFunctionOut" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -65,7 +65,7 @@ custom_minimum_size = Vector2(0, 100)
 anchors_preset = 0
 offset_right = 200.0
 offset_bottom = 100.0
-script = ExtResource("2_unrnq")
+script = ExtResource("2_wgjvp")
 metadata/_custom_type_script = "uid://d0oca172jemxl"
 
 [node name="FunctionTypeOption" type="OptionButton" parent="AudioFunctionOut/VBoxContainer"]

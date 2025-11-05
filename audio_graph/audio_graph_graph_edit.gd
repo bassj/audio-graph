@@ -3,7 +3,7 @@ extends GraphEdit
 const BaseNode = preload("res://audio_graph/graph_edit_nodes/base_node.gd");
 const MonoOutputNode = preload("res://audio_graph/graph_edit_nodes/mono_output_node.gd");
 
-const AudioFunctionGenerator: PackedScene = preload("res://audio_graph/graph_edit_nodes/audio_function_generator.tscn");
+const SimpleAudioGenerator: PackedScene = preload("res://audio_graph/graph_edit_nodes/simple_audio_generator.tscn");
 const Mix2Node: PackedScene = preload("res://audio_graph/graph_edit_nodes/mixer_nodes/mix2_node.tscn");
 const DelayNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/delay_node.tscn");
 
@@ -20,7 +20,9 @@ const DelayNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/delay
 @onready var output_graph_node: MonoOutputNode = $MonoOutput
 
 var _node_types = {
-	"Generator": AudioFunctionGenerator,
+	"Generator": {
+		"Simple Generator": SimpleAudioGenerator,
+	},
 	"Delay": DelayNode,
 	"Mix": {
 		"Mix2": Mix2Node,
@@ -160,7 +162,7 @@ func _clear_graph_nodes() -> void:
 			child.queue_free()
 
 var _audio_to_graph_node = {
-	"Generator": AudioFunctionGenerator,
+	"SimpleGenerator": SimpleAudioGenerator,
 	"Delay": DelayNode,
 	"Mixer": Mix2Node,
 }

@@ -1,6 +1,6 @@
 @tool
 extends AudioGraphNode
-class_name Generator
+class_name SimpleGenerator
 
 const FUNCTION_SINE := "sine"
 const FUNCTION_SQUARE := "square"
@@ -16,7 +16,7 @@ func _init(p_function: String = FUNCTION_SINE, p_phase_offset: float = 0.0) -> v
 	phase_offset = p_phase_offset
 
 func sample(output_index: int) -> float:
-	assert(output_index == 0, "Generator node only has one output (index 0)")
+	assert(output_index == 0, "SimpleGenerator node only has one output (index 0)")
 
 	var value = sample_at(phase + phase_offset)
 	return value

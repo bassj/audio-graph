@@ -13,7 +13,9 @@ extends "res://audio_graph/graph_edit_nodes/base_node.gd"
 
 @onready var function_option: OptionButton = $AudioFunctionOut/VBoxContainer/FunctionTypeOption
 
-@export var generator: Generator = Generator.new(
+#region Properties
+
+@export var generator: SimpleGenerator = SimpleGenerator.new(
 	"sine",
 	0.0
 )
@@ -51,6 +53,10 @@ var _phase: float = 0.0:
 		_update_phase_ui()
 		preview.queue_redraw()
 
+#endregion
+
+#region Virtual Methods
+
 func save_editor_metadata() -> void:
 	generator.set_meta("graph_edit_position", position_offset)
 
@@ -60,7 +66,7 @@ func apply_editor_metadata() -> void:
 		position_offset = pos
 
 func set_audio_node(node: AudioGraphNode) -> void:
-	assert(node is Generator, "AudioGraphGraphEdit can only set Generator nodes as its audio node.")
+	assert(node is SimpleGenerator, "AudioGraphGraphEdit can only set SimpleGenerator nodes as its audio node.")
 	generator = node
 
 func get_audio_node() -> AudioGraphNode:
@@ -69,6 +75,8 @@ func get_audio_node() -> AudioGraphNode:
 func set_input(_index: int, _input: AudioGraphNode, _output_index: int) -> bool:
 	assert(false, "FunctionGeneratorNode cannot have an input.")
 	return false
+
+#endregion
 
 func _ready() -> void:
 	_update_frequency_ui()
