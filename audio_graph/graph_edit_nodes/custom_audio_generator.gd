@@ -10,7 +10,15 @@ var ParameterInputScene: PackedScene = preload("res://ui/custom_function_paramet
 @onready var variable_add_button: Button = $VariablesVBox/HBoxContainer/Button
 @onready var variable_container: VBoxContainer = $VariablesVBox/VariableContainer
 
-@export var generator: CustomGenerator = CustomGenerator.new()
+@export var generator: CustomGenerator = CustomGenerator.new():
+	set(p_generator):
+		if p_generator == generator:
+			return
+
+		generator = p_generator
+		generator.execution_error.connect(func (error_text):
+			expression_error_label.text = error_text
+		)
 
 func delete_parameter(p_parameter_name: String) -> void:
 	if generator.parameters.has(p_parameter_name):
@@ -19,10 +27,10 @@ func delete_parameter(p_parameter_name: String) -> void:
 	preview.queue_redraw()
 
 func save_editor_metadata() -> void:
-	pass
+	assert(false, "Not implemented")
 
 func apply_editor_metadata() -> void:
-	pass
+	assert(false, "Not implemented")
 
 func set_audio_node(p_node: AudioGraphNode) -> void:
 	assert(p_node is CustomGenerator, "Node must be a CustomGenerator")
@@ -74,14 +82,12 @@ func _create_parameter_input(p_parameter_name: String) -> NumberInput:
 		generator.parameters[new_name] = number_input.value
 		generator.parameters.erase(old_name)
 		_update_expression()
-		preview.queue_redraw()
 
 	var _delete_parameter = func ():
 		generator.parameters.erase(parameter_name[0])
 		variable_container.remove_child(number_input)
 		number_input.queue_free()
 		_update_expression()
-		preview.queue_redraw()
 
 	number_input.value_changed.connect(_save_value)
 	number_input.label_changed.connect(_debounce(_rename_parameter))
@@ -95,10 +101,16 @@ func _ready() -> void:
 	expression_code_edit.text_changed.connect(_debounce(_update_expression))
 	_update_expression()
 
+
+	generator.execution_error.connect(func (error_text):
+		expression_error_label.text = error_text
+	)
+
 	variable_add_button.pressed.connect(func():
 		var parameter_name = "var_%d" % (generator.parameters.size() + 1)
 		var input = _create_parameter_input(parameter_name)
 		generator.parameters[parameter_name] = input.value
+		_update_expression()
 	)
 
 	preview.function = func(phase: float) -> float:

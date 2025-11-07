@@ -54,7 +54,6 @@ signal delete_requested()
 	set(p_label):
 		if label == p_label:
 			return
-		var old_label = label
 		label = p_label
 		label_changed.emit(label)
 		if is_inside_tree():
