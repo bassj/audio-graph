@@ -4,6 +4,7 @@ const BaseNode = preload("res://audio_graph/graph_edit_nodes/base_node.gd");
 const MonoOutputNode = preload("res://audio_graph/graph_edit_nodes/mono_output_node.gd");
 
 const SimpleAudioGenerator: PackedScene = preload("res://audio_graph/graph_edit_nodes/simple_audio_generator.tscn");
+const CustomAudioGenerator: PackedScene = preload("res://audio_graph/graph_edit_nodes/custom_audio_generator.tscn");
 const Mix2Node: PackedScene = preload("res://audio_graph/graph_edit_nodes/mixer_nodes/mix2_node.tscn");
 const DelayNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/delay_node.tscn");
 
@@ -22,11 +23,14 @@ const DelayNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/delay
 var _node_types = {
 	"Generator": {
 		"Simple Generator": SimpleAudioGenerator,
+		"Custom Generator": CustomAudioGenerator,
 	},
-	"Delay": DelayNode,
 	"Mix": {
 		"Mix2": Mix2Node,
-	}
+	},
+	"Effect": {
+		"Delay": DelayNode,
+	},
 }
 
 var context_menu: PopupMenu

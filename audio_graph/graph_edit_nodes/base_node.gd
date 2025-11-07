@@ -40,7 +40,7 @@ func clear_input(index: int) -> void:
 #region Utility Methods
 
 var _debounce_timers = {}
-func _debounce(fn: Callable, delay_ms: int) -> Callable:
+func _debounce(fn: Callable, delay_ms: int = 250) -> Callable:
 	var timer_key = str(fn)
 
 	if not _debounce_timers.has(timer_key):

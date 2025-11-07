@@ -1,9 +1,12 @@
 [gd_scene load_steps=2 format=3 uid="uid://brpmpv3qjd622"]
 
-[ext_resource type="Script" uid="uid://csfyd16y6aaar" path="res://audio_graph/graph_edit_nodes/numeric_value_in.gd" id="1_rk23x"]
+[ext_resource type="Script" uid="uid://csfyd16y6aaar" path="res://ui/numeric_value_in.gd" id="1_rk23x"]
 
-[node name="NumericValueIn" type="VBoxContainer" unique_id=1245364079]
+[node name="NumericValueIn" type="VBoxContainer" unique_id=1245364079 node_paths=PackedStringArray("label_ref", "spinner", "slider")]
 script = ExtResource("1_rk23x")
+label_ref = NodePath("Label")
+spinner = NodePath("SpinBox")
+slider = NodePath("HSlider")
 
 [node name="Label" type="Label" parent="." unique_id=170180359]
 layout_mode = 2

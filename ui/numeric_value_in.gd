@@ -2,13 +2,15 @@
 extends VBoxContainer
 class_name NumberInput
 
-@onready var _label: Label = $Label
-@onready var _spinner: SpinBox = $SpinBox
-@onready var _slider: HSlider = $HSlider
+@export var label_ref: Label
+@export var spinner: SpinBox
+@export var slider: HSlider
 
 #region Signals
 
 signal value_changed(value: float)
+signal label_changed(new_label: String)
+signal delete_requested()
 
 #endregion
 
@@ -19,7 +21,7 @@ signal value_changed(value: float)
 		if value == p_value:
 			return
 
-		value = p_value
+		value = clampf(p_value, min_value, max_value)
 		if is_inside_tree():
 			_update_value()
 		else:
@@ -50,7 +52,11 @@ signal value_changed(value: float)
 
 @export var label: String = "Number Input":
 	set(p_label):
+		if label == p_label:
+			return
+		var old_label = label
 		label = p_label
+		label_changed.emit(label)
 		if is_inside_tree():
 			_update_config()
 		else:
@@ -68,8 +74,8 @@ signal value_changed(value: float)
 #region Godot Hooks
 
 func _ready() -> void:
-	_slider.value_changed.connect(_on_value_changed)
-	_spinner.value_changed.connect(_on_value_changed)
+	slider.value_changed.connect(_on_value_changed)
+	spinner.value_changed.connect(_on_value_changed)
 
 	_update_config()
 	_update_value()
@@ -82,19 +88,19 @@ func _on_value_changed(p_value: float) -> void:
 	value = p_value
 
 func _update_value() -> void:
-	_spinner.value = value
-	_slider.value = value
+	spinner.value = value
+	slider.value = value
 
 func _update_config() -> void:
-	_spinner.min_value = min_value
-	_spinner.max_value = max_value
-	_spinner.step = step
-	_spinner.suffix = units
+	spinner.min_value = min_value
+	spinner.max_value = max_value
+	spinner.step = step
+	spinner.suffix = units
 
-	_slider.min_value = min_value
-	_slider.max_value = max_value
-	_slider.step = step
+	slider.min_value = min_value
+	slider.max_value = max_value
+	slider.step = step
 
-	_label.text = label
+	label_ref.text = label
 
 #endregion
