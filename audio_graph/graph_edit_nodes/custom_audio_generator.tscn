@@ -1454,7 +1454,7 @@ color_regions = {
 "' '": Color(0.94, 0.43, 0.75, 1)
 }
 
-[node name="CustomAudioGenerator" type="GraphNode" unique_id=160946828]
+[node name="CustomAudioGenerator" type="GraphNode" unique_id=160946828 node_paths=PackedStringArray("preview", "expression_code_edit", "expression_error_label", "variable_add_button", "variable_container")]
 offset_right = 256.0
 offset_bottom = 457.0
 title = "Custom Audio Generator"
@@ -1504,7 +1504,11 @@ slot/4/right_color = Color(1, 1, 1, 1)
 slot/4/right_icon = null
 slot/4/draw_stylebox = true
 script = ExtResource("1_wpy7s")
-can_be_deleted = null
+preview = NodePath("AudioFunctionOut/Control/FunctionPlotter")
+expression_code_edit = NodePath("ExpressionVBox/ExpressionCodeEdit")
+expression_error_label = NodePath("ExpressionVBox/ExpressionError")
+variable_add_button = NodePath("VariablesVBox/HBoxContainer/Button")
+variable_container = NodePath("VariablesVBox/VariableContainer")
 
 [node name="AudioFunctionOut" type="MarginContainer" parent="." unique_id=580375305]
 layout_mode = 2

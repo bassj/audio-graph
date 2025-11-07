@@ -166,6 +166,7 @@ func _clear_graph_nodes() -> void:
 			child.queue_free()
 
 var _audio_to_graph_node = {
+	"CustomGenerator": CustomAudioGenerator,
 	"SimpleGenerator": SimpleAudioGenerator,
 	"Delay": DelayNode,
 	"Mixer": Mix2Node,
