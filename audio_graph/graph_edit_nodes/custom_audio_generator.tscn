@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bcnwiqgsnbjbq"]
 
 [ext_resource type="Script" uid="uid://bccsc3uy014xo" path="res://audio_graph/graph_edit_nodes/custom_audio_generator.gd" id="1_wpy7s"]
-[ext_resource type="Script" uid="uid://d0oca172jemxl" path="res://audio_graph/function_plotter.gd" id="2_8a5il"]
+[ext_resource type="Script" uid="uid://d0oca172jemxl" path="res://ui/function_plotter.gd" id="2_8a5il"]
 [ext_resource type="Texture2D" uid="uid://dxom1r6qrxmub" path="res://ui/icons/Add.svg" id="3_8a5il"]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_wpy7s"]
@@ -1457,6 +1457,7 @@ color_regions = {
 [node name="CustomAudioGenerator" type="GraphNode" unique_id=160946828 node_paths=PackedStringArray("preview", "expression_code_edit", "expression_error_label", "variable_add_button", "variable_container")]
 offset_right = 256.0
 offset_bottom = 457.0
+resizable = true
 title = "Custom Audio Generator"
 slot/0/left_enabled = false
 slot/0/left_type = 0
@@ -1504,29 +1505,23 @@ slot/4/right_color = Color(1, 1, 1, 1)
 slot/4/right_icon = null
 slot/4/draw_stylebox = true
 script = ExtResource("1_wpy7s")
-preview = NodePath("AudioFunctionOut/Control/FunctionPlotter")
+preview = NodePath("AudioFunctionOut/FunctionPlotter")
 expression_code_edit = NodePath("ExpressionVBox/ExpressionCodeEdit")
 expression_error_label = NodePath("ExpressionVBox/ExpressionError")
 variable_add_button = NodePath("VariablesVBox/HBoxContainer/Button")
-variable_container = NodePath("VariablesVBox/VariableContainer")
+variable_container = NodePath("VariablesVBox/ScrollContainer/VariableContainer")
 
 [node name="AudioFunctionOut" type="MarginContainer" parent="." unique_id=580375305]
+clip_contents = true
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Control" type="Control" parent="AudioFunctionOut" unique_id=478384847]
-clip_contents = true
+[node name="FunctionPlotter" type="Control" parent="AudioFunctionOut" unique_id=2129095948]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-
-[node name="FunctionPlotter" type="Control" parent="AudioFunctionOut/Control" unique_id=2129095948]
-custom_minimum_size = Vector2(0, 100)
-anchors_preset = 0
-offset_right = 200.0
-offset_bottom = 100.0
 script = ExtResource("2_8a5il")
 metadata/_custom_type_script = "uid://d0oca172jemxl"
 
@@ -1535,6 +1530,8 @@ layout_mode = 2
 
 [node name="ExpressionVBox" type="VBoxContainer" parent="." unique_id=1383004636]
 layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 
 [node name="Label" type="Label" parent="ExpressionVBox" unique_id=641416528]
 layout_mode = 2
@@ -1543,6 +1540,7 @@ text = "Custom Expression"
 [node name="ExpressionCodeEdit" type="CodeEdit" parent="ExpressionVBox" unique_id=1947504305]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+size_flags_vertical = 3
 text = "sin(TAU * phase)"
 placeholder_text = "Expression"
 syntax_highlighter = SubResource("CodeHighlighter_wpy7s")
@@ -1558,6 +1556,7 @@ layout_mode = 2
 
 [node name="VariablesVBox" type="VBoxContainer" parent="." unique_id=944317927]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VariablesVBox" unique_id=589799236]
 layout_mode = 2
@@ -1569,7 +1568,13 @@ text = "Variables"
 [node name="Button" type="Button" parent="VariablesVBox/HBoxContainer" unique_id=1396638108]
 layout_mode = 2
 size_flags_horizontal = 10
+size_flags_vertical = 4
 icon = ExtResource("3_8a5il")
 
-[node name="VariableContainer" type="VBoxContainer" parent="VariablesVBox" unique_id=172804188]
+[node name="ScrollContainer" type="ScrollContainer" parent="VariablesVBox" unique_id=630277626]
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VariableContainer" type="VBoxContainer" parent="VariablesVBox/ScrollContainer" unique_id=172804188]
+layout_mode = 2
+size_flags_horizontal = 3

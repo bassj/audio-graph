@@ -1,0 +1,103 @@
+[gd_resource type="Resource" script_class="AudioGraph" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://audio_graph/audio_graph_nodes/custom_generator.gd" id="1_e4xtt"]
+[ext_resource type="Script" path="res://audio_graph/audio_graph_nodes/mixer.gd" id="1_mtnbl"]
+[ext_resource type="Script" path="res://audio_graph/audio_graph.gd" id="2_e4xtt"]
+
+[sub_resource type="Resource" id="Resource_i83rb"]
+script = ExtResource("1_e4xtt")
+expression = "cos(2.0 * TAU * phase)"
+metadata/graph_edit_position = Vector2(-900, -440)
+metadata/graph_edit_size = Vector2(260, 380)
+metadata/graph_edit_param_meta = {}
+
+[sub_resource type="Resource" id="Resource_e4xtt"]
+script = ExtResource("1_e4xtt")
+expression = "piecewise(
+	sin(TAU * (phase * t + 0.5)),
+	0,
+	t
+)"
+parameters = Dictionary[String, Variant]({
+"t": 0.0833
+})
+metadata/graph_edit_position = Vector2(-1400, -400)
+metadata/graph_edit_size = Vector2(420, 620)
+metadata/graph_edit_param_meta = {
+"t": {
+"max_value": 1.0,
+"min_value": 0.0,
+"step": 0.0001,
+"units": ""
+}
+}
+
+[sub_resource type="Resource" id="Resource_ibkav"]
+script = ExtResource("1_mtnbl")
+inputs = Dictionary[int, Dictionary]({
+0: {
+"node": SubResource("Resource_i83rb"),
+"output_index": 0
+},
+1: {
+"node": SubResource("Resource_e4xtt"),
+"output_index": 0
+}
+})
+metadata/graph_edit_position = Vector2(-420, -40)
+
+[sub_resource type="Resource" id="Resource_nhsk2"]
+script = ExtResource("1_e4xtt")
+expression = "piecewise(
+	sin(TAU * 2.0 * phase),
+	0.0,
+	0.25
+)"
+metadata/graph_edit_position = Vector2(-1300, 280)
+metadata/graph_edit_size = Vector2(256, 457)
+metadata/graph_edit_param_meta = {}
+
+[sub_resource type="Resource" id="Resource_5xr8j"]
+script = ExtResource("1_e4xtt")
+expression = "piecewise(
+	-sin(TAU * 2.0 * phase),
+	0.75,
+	1.0
+)"
+metadata/graph_edit_position = Vector2(-880, 40)
+metadata/graph_edit_size = Vector2(256, 457.00006)
+metadata/graph_edit_param_meta = {}
+
+[sub_resource type="Resource" id="Resource_yb2xy"]
+script = ExtResource("1_mtnbl")
+inputs = Dictionary[int, Dictionary]({
+0: {
+"node": SubResource("Resource_5xr8j"),
+"output_index": 0
+},
+1: {
+"node": SubResource("Resource_nhsk2"),
+"output_index": 0
+}
+})
+metadata/graph_edit_position = Vector2(-420, 200)
+
+[sub_resource type="Resource" id="Resource_408w6"]
+script = ExtResource("1_mtnbl")
+inputs = Dictionary[int, Dictionary]({
+0: {
+"node": SubResource("Resource_ibkav"),
+"output_index": 0
+},
+1: {
+"node": SubResource("Resource_yb2xy"),
+"output_index": 0
+}
+})
+metadata/graph_edit_position = Vector2(-60, 60)
+
+[resource]
+script = ExtResource("2_e4xtt")
+graph_root = SubResource("Resource_408w6")
+metadata/_custom_type_script = "uid://cbodbked54srs"
+metadata/output_graph_edit_position = Vector2(597, 305)

@@ -29,6 +29,7 @@ func delete_parameter(p_parameter_name: String) -> void:
 
 func save_editor_metadata() -> void:
 	generator.set_meta("graph_edit_position", position_offset)
+	generator.set_meta("graph_edit_size", size)
 
 	var param_meta = {}
 	for c in variable_container.get_children():
@@ -45,8 +46,14 @@ func save_editor_metadata() -> void:
 
 func apply_editor_metadata() -> void:
 	var pos = generator.get_meta("graph_edit_position", null)
+	var _size = generator.get_meta("graph_edit_size", null)
+
 	if pos != null:
 		position_offset = pos
+
+	if _size != null:
+		set_size(_size)
+
 	_update_ui()
 
 func set_audio_node(p_node: AudioGraphNode) -> void:

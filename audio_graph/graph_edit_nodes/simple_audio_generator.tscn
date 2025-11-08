@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://m8oprnrkwfr2"]
 
 [ext_resource type="Script" uid="uid://bcf78bedm18b6" path="res://audio_graph/graph_edit_nodes/simple_audio_generator.gd" id="1_7llxx"]
-[ext_resource type="Script" uid="uid://d0oca172jemxl" path="res://audio_graph/function_plotter.gd" id="2_wgjvp"]
+[ext_resource type="Script" uid="uid://d0oca172jemxl" path="res://ui/function_plotter.gd" id="2_wgjvp"]
 [ext_resource type="PackedScene" uid="uid://brpmpv3qjd622" path="res://ui/numeric_value_in.tscn" id="3_wgjvp"]
 
 [node name="SimpleAudioGenerator" type="GraphNode" unique_id=126677424]

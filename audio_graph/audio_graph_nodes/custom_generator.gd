@@ -38,6 +38,10 @@ func sample_at(p_phase: float) -> float:
 	if value == null:
 		return 0.0
 
+	if not value is float:
+		execution_error.emit("Expression did not return a numeric value.")
+		return 0.0
+
 	return value
 
 class ExpressionContext:

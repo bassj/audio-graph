@@ -2,7 +2,9 @@ extends Control
 class_name FunctionPlotter
 
 var function: Callable
-var steps: int = 100
+
+@export
+var steps: int = 200
 
 func _draw():
     if not function:
