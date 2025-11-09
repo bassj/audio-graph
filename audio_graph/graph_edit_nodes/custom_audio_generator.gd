@@ -45,14 +45,11 @@ func save_editor_metadata() -> void:
 	generator.set_meta("graph_edit_param_meta", param_meta)
 
 func apply_editor_metadata() -> void:
-	var pos = generator.get_meta("graph_edit_position", null)
-	var _size = generator.get_meta("graph_edit_size", null)
+	if generator.has_meta("graph_edit_position"):
+		position_offset = generator.get_meta("graph_edit_position")
 
-	if pos != null:
-		position_offset = pos
-
-	if _size != null:
-		set_size(_size)
+	if generator.has_meta("graph_edit_size"):
+		size = generator.get_meta("graph_edit_size")
 
 	_update_ui()
 

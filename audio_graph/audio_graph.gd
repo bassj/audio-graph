@@ -1,3 +1,8 @@
+# TODO: Fix issue with loading files twice
+# Save orphaned branches
+# Add a way to adjust gain
+# Add a way to adjust the phase or playback speed of custom generators
+
 @tool
 extends Resource
 class_name AudioGraph

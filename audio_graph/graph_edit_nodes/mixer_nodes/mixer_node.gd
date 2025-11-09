@@ -9,9 +9,8 @@ func save_editor_metadata() -> void:
 	mixer.set_meta("graph_edit_position", position_offset)
 
 func apply_editor_metadata() -> void:
-	var pos = mixer.get_meta("graph_edit_position", null)
-	if pos != null:
-		position_offset = pos
+	if mixer.has_meta("graph_edit_position"):
+		position_offset = mixer.get_meta("graph_edit_position")
 
 func set_audio_node(node: AudioGraphNode) -> void:
 	assert(node is Mixer, "Node must be of type Mixer.")

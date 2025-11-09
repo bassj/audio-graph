@@ -18,9 +18,8 @@ func save_editor_metadata() -> void:
 	delay.set_meta("graph_edit_position", position_offset)
 
 func apply_editor_metadata() -> void:
-	var pos = delay.get_meta("graph_edit_position", null)
-	if pos != null:
-		position_offset = pos
+	if delay.has_meta("graph_edit_position"):
+		position_offset = delay.get_meta("graph_edit_position")
 
 func set_audio_node(node: AudioGraphNode) -> void:
 	assert(node is Delay, "Node must be of type Delay.")

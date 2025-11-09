@@ -20,9 +20,8 @@ func save_editor_metadata() -> void:
 	audio_graph.set_meta("output_graph_edit_position", position_offset)
 
 func apply_editor_metadata() -> void:
-	var pos = audio_graph.get_meta("output_graph_edit_position", null)
-	if pos != null:
-		position_offset = pos
+	if audio_graph.has_meta("output_graph_edit_position"):
+		position_offset = audio_graph.get_meta("output_graph_edit_position")
 
 func set_audio_node(_node: AudioGraphNode) -> void:
 	assert(false, "MonoOutputNode does not have an audio node.")
