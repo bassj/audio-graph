@@ -163,6 +163,7 @@ func _get_incoming_connections_with_port(node: StringName, port: int):
 func _clear_graph_nodes() -> void:
 	for child in get_children():
 		if child is BaseNode and child.can_be_deleted:
+			remove_child(child)
 			child.queue_free()
 
 var _audio_to_graph_node = {
@@ -213,7 +214,7 @@ func _init_graph_nodes() -> void:
 			var input_node = input["node"]
 			var output_index = input["output_index"]
 			var input_audio_graph_node = _node_to_graph.get(input_node)
-			assert(input_audio_graph_node != null, "Input audio graph node not found.")
+			assert(input_audio_graph_node != null, "Input audio graph node not found. (%s)" % [input_node])
 			connect_node(
 				input_audio_graph_node.get_name(),
 				output_index,
