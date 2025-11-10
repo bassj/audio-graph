@@ -23,6 +23,7 @@ var max_rpm = 6000
 
 [sub_resource type="Resource" id="Resource_gyfs4"]
 script = ExtResource("3_0hol4")
+orphaned_branches = null
 metadata/_custom_type_script = "uid://cbodbked54srs"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfk4m"]

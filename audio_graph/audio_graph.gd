@@ -1,5 +1,3 @@
-# TODO: Fix issue with loading files twice
-# Save orphaned branches
 # Add a way to adjust gain
 # Add a way to adjust the phase or playback speed of custom generators
 
@@ -14,6 +12,8 @@ signal mix_rate_changed(new_mix_rate: int)
 	set(p_graph_root):
 		graph_root = p_graph_root
 		graph_branch_added.emit(graph_root)
+
+@export var orphaned_branches: Array[AudioGraphNode] = []
 
 @export var graph_root_output_index: int = 0
 

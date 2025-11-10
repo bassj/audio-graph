@@ -51,6 +51,7 @@ func _on_context_menu_id_pressed(p_context_menu: PopupMenu) -> Callable:
 		var value = p_context_menu.get_item_metadata(id)
 		var instance = value.instantiate()
 		instance.set_audio_graph(audio_graph)
+		audio_graph.orphaned_branches.append(instance.get_audio_node())
 		add_child(instance)
 		instance.position_offset = get_local_mouse_position() + scroll_offset
 
@@ -98,8 +99,15 @@ func _init_connection_handlers() -> void:
 		for node in nodes:
 			var child = get_node(NodePath(node))
 			if child and child.get("can_be_deleted"):
-				var con_list = get_connection_list_from_node(node)
-				for c in con_list:
+				# Add all of the nodes that output to this node to the orphaned branches
+				var audio_node = child.get_audio_node()
+				for input in audio_node.inputs.values():
+					# This doesn't account for nodes with multiple outputs, so may need to be revisited later
+					var input_node = input["node"]
+					audio_graph.orphaned_branches.append(input_node)
+
+				var node_outputs = get_connection_list_from_node(node)
+				for c in node_outputs:
 					var to_node = c["to_node"]
 					var to_port = c["to_port"]
 					var to_node_ref = get_node(NodePath(to_node)) as BaseNode
@@ -111,8 +119,10 @@ func _init_connection_handlers() -> void:
 		var from_node_ref = get_node(NodePath(from_node)) as BaseNode
 		var to_node_ref = get_node(NodePath(to_node)) as BaseNode
 
-		if not from_node_ref or not to_node_ref:
-			return
+
+		assert(from_node_ref != null, "from_node_ref (%s) is null in connection_request." % [from_node])
+		assert(to_node_ref != null, "to_node_ref (%s) is null in connection_request." % [to_node])
+
 
 		var from_type = from_node_ref.get_output_port_type(from_port)
 		var to_type = to_node_ref.get_input_port_type(to_port)
@@ -123,9 +133,13 @@ func _init_connection_handlers() -> void:
 		if from_node == to_node: # Don't allow node to connect to itself
 			return
 
+		var output_audio_node = from_node_ref.get_audio_node()
+
+		audio_graph.orphaned_branches.erase(output_audio_node)
+
 		var input_was_set = to_node_ref.set_input(
 			to_port,
-			from_node_ref.get_audio_node(),
+			output_audio_node,
 			from_port,
 		)
 
@@ -139,8 +153,12 @@ func _init_connection_handlers() -> void:
 		var from_node_ref = get_node(NodePath(from_node)) as BaseNode
 		var to_node_ref = get_node(NodePath(to_node)) as BaseNode
 
-		if not from_node_ref or not to_node_ref:
-			return
+		assert(from_node_ref != null, "from_node_ref (%s) is null in disconnection_request." % [from_node])
+		assert(to_node_ref != null, "to_node_ref (%s) is null in disconnection_request." % [to_node])
+
+		# TODO: account for multiple outputs
+		var output_audio_node = from_node_ref.get_audio_node()
+		audio_graph.orphaned_branches.append(output_audio_node)
 
 		to_node_ref.input = null
 		disconnect_node(from_node, from_port, to_node, to_port)
@@ -174,11 +192,12 @@ var _audio_to_graph_node = {
 }
 
 func _init_graph_nodes() -> void:
-	if audio_graph == null or audio_graph.graph_root == null:
+	if audio_graph == null or (audio_graph.graph_root == null and audio_graph.orphaned_branches.size() == 0):
 		return
 
 	var _node_to_graph = {}
 	var s = [audio_graph.graph_root]
+	s.append_array(audio_graph.orphaned_branches)
 	while not s.is_empty():
 		var node = s.pop_back()
 		if node == null:
@@ -196,10 +215,12 @@ func _init_graph_nodes() -> void:
 
 	output_graph_node.set_audio_graph(audio_graph)
 	output_graph_node.apply_editor_metadata()
-	connect_node(
-		_node_to_graph[audio_graph.graph_root].get_name(), 0,
-		output_graph_node.get_name(), 0
-	)
+
+	if audio_graph.graph_root != null:
+		connect_node(
+			_node_to_graph[audio_graph.graph_root].get_name(), 0,
+			output_graph_node.get_name(), 0
+		)
 
 	for audio_graph_node in get_children():
 		if (not audio_graph_node is BaseNode) or (audio_graph_node is MonoOutputNode):
