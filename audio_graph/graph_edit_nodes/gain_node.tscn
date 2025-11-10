@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://cs4oifbidg27k"]
+
+[ext_resource type="Script" uid="uid://c2d11berojt4n" path="res://audio_graph/graph_edit_nodes/gain_node.gd" id="1_royrb"]
+[ext_resource type="Script" uid="uid://dbc81w2xo8vig" path="res://audio_graph/audio_graph_nodes/gain.gd" id="2_t8can"]
+[ext_resource type="PackedScene" uid="uid://brpmpv3qjd622" path="res://ui/numeric_value_in.tscn" id="3_boy16"]
+
+[sub_resource type="Resource" id="Resource_ygk2d"]
+script = ExtResource("2_t8can")
+
+[node name="GainNode" type="GraphNode" unique_id=246479332]
+offset_right = 190.0
+offset_bottom = 158.0
+mouse_filter = 1
+title = "Delay"
+slot/0/left_enabled = true
+slot/0/left_type = 1
+slot/0/left_color = Color(0, 1, 0, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 1
+slot/0/right_color = Color(0, 1, 0, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 1
+slot/1/right_color = Color(0, 1, 0, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("1_royrb")
+gain = SubResource("Resource_ygk2d")
+
+[node name="AudioLabel" type="Label" parent="." unique_id=368380589]
+layout_mode = 2
+text = "Audio"
+
+[node name="GainIn" parent="." unique_id=1245364079 instance=ExtResource("3_boy16")]
+layout_mode = 2
+min_value = -60.0
+max_value = 6.0
+label = "Gain"
+units = "dB"

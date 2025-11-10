@@ -7,6 +7,7 @@ const SimpleAudioGenerator: PackedScene = preload("res://audio_graph/graph_edit_
 const CustomAudioGenerator: PackedScene = preload("res://audio_graph/graph_edit_nodes/custom_audio_generator.tscn");
 const Mix2Node: PackedScene = preload("res://audio_graph/graph_edit_nodes/mixer_nodes/mix2_node.tscn");
 const DelayNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/delay_node.tscn");
+const GainNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/gain_node.tscn");
 
 @export var audio_graph: AudioGraph:
 	set(p_audio_graph):
@@ -30,6 +31,7 @@ var _node_types = {
 	},
 	"Effect": {
 		"Delay": DelayNode,
+		"Gain": GainNode,
 	},
 }
 
@@ -189,6 +191,7 @@ var _audio_to_graph_node = {
 	"SimpleGenerator": SimpleAudioGenerator,
 	"Delay": DelayNode,
 	"Mixer": Mix2Node,
+	"Gain": GainNode,
 }
 
 func _init_graph_nodes() -> void:
