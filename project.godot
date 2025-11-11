@@ -15,6 +15,15 @@ run/main_scene="uid://dn7avnhruiiq2"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[file_customization]
+
+folder_colors={
+"res://audio_graph/": "green",
+"res://audio_graph/audio_graph_nodes/": "purple",
+"res://audio_graph/graph_edit_nodes/": "red",
+"res://audio_graph/ui/": "blue"
+}
+
 [input]
 
 throttle={

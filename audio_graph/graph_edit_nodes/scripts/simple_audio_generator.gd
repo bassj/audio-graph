@@ -1,4 +1,4 @@
-extends "res://audio_graph/graph_edit_nodes/base_node.gd"
+extends "res://audio_graph/graph_edit_nodes/scripts/base_node.gd"
 
 @onready var preview: FunctionPlotter = $AudioFunctionOut/VBoxContainer/Control/FunctionPlotter
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cpp0f78utroj8"]
 
-[ext_resource type="Script" uid="uid://1psfm62tp218" path="res://audio_graph/graph_edit_nodes/mixer_nodes/mixer_node.gd" id="1_ow73v"]
+[ext_resource type="Script" uid="uid://1psfm62tp218" path="res://audio_graph/graph_edit_nodes/scripts/mixer_node.gd" id="1_ow73v"]
 
 [node name="GraphNode" type="GraphNode"]
 offset_right = 141.0

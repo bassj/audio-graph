@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cs4oifbidg27k"]
 
-[ext_resource type="Script" uid="uid://c2d11berojt4n" path="res://audio_graph/graph_edit_nodes/gain_node.gd" id="1_royrb"]
+[ext_resource type="Script" uid="uid://c2d11berojt4n" path="res://audio_graph/graph_edit_nodes/scripts/gain_node.gd" id="1_royrb"]
 [ext_resource type="Script" uid="uid://dbc81w2xo8vig" path="res://audio_graph/audio_graph_nodes/gain.gd" id="2_t8can"]
-[ext_resource type="PackedScene" uid="uid://brpmpv3qjd622" path="res://ui/numeric_value_in.tscn" id="3_boy16"]
+[ext_resource type="PackedScene" uid="uid://brpmpv3qjd622" path="res://audio_graph/ui/prefabs/numeric_value_in.tscn" id="3_boy16"]
 
 [sub_resource type="Resource" id="Resource_ygk2d"]
 script = ExtResource("2_t8can")

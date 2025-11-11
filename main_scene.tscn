@@ -1,11 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://dn7avnhruiiq2"]
+[gd_scene load_steps=11 format=3 uid="uid://dn7avnhruiiq2"]
 
-[ext_resource type="Texture2D" uid="uid://cxa5gip1s33d6" path="res://ui/icons/Save.svg" id="1_8mm7a"]
+[ext_resource type="Texture2D" uid="uid://cxa5gip1s33d6" path="res://audio_graph/ui/icons/Save.svg" id="1_8mm7a"]
 [ext_resource type="Script" uid="uid://chqq8bf0g1hsk" path="res://audio_graph/audio_graph_graph_edit.gd" id="1_wtcfe"]
-[ext_resource type="PackedScene" uid="uid://cyoxydacsgr02" path="res://audio_graph/graph_edit_nodes/mono_output_node.tscn" id="2_0e48y"]
-[ext_resource type="Texture2D" uid="uid://lpffj2a833a3" path="res://ui/icons/Load.svg" id="2_hq1ik"]
+[ext_resource type="PackedScene" uid="uid://cyoxydacsgr02" path="res://audio_graph/graph_edit_nodes/prefabs/mono_output_node.tscn" id="2_0e48y"]
+[ext_resource type="Texture2D" uid="uid://lpffj2a833a3" path="res://audio_graph/ui/icons/Load.svg" id="2_hq1ik"]
+[ext_resource type="Script" uid="uid://fe664sw1ahg5" path="res://audio_graph/audio_graph_nodes/audio_graph_node.gd" id="2_nfk4m"]
 [ext_resource type="Script" uid="uid://cbodbked54srs" path="res://audio_graph/audio_graph.gd" id="3_0hol4"]
-[ext_resource type="Script" uid="uid://dk4mxllhwhbym" path="res://menu_bar.gd" id="4_hq1ik"]
+[ext_resource type="Script" uid="uid://dk4mxllhwhbym" path="res://audio_graph/ui/scripts/menu_bar.gd" id="4_hq1ik"]
 
 [sub_resource type="GDScript" id="GDScript_0hol4"]
 script/source = "extends Node2D
@@ -23,7 +24,6 @@ var max_rpm = 6000
 
 [sub_resource type="Resource" id="Resource_gyfs4"]
 script = ExtResource("3_0hol4")
-orphaned_branches = null
 metadata/_custom_type_script = "uid://cbodbked54srs"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfk4m"]

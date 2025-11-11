@@ -1,0 +1,98 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwv361nnh76ng"]
+
+[ext_resource type="Script" uid="uid://csfyd16y6aaar" path="res://audio_graph/ui/scripts/numeric_value_in.gd" id="1_2b2yl"]
+[ext_resource type="Texture2D" uid="uid://bucepkimg7yrx" path="res://audio_graph/ui/icons/GuiTabMenu.svg" id="2_v687h"]
+[ext_resource type="Script" uid="uid://oronswsglj5p" path="res://audio_graph/ui/scripts/number_input_property_popup.gd" id="3_hol5u"]
+
+[node name="ParameterInput" type="VBoxContainer" unique_id=1607467976 node_paths=PackedStringArray("label_ref", "spinner", "slider")]
+script = ExtResource("1_2b2yl")
+label_ref = NodePath("HBoxContainer/Label")
+spinner = NodePath("SpinBox")
+slider = NodePath("HSlider")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=35346228]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=2121023574]
+layout_mode = 2
+text = "Number Input"
+
+[node name="Button" type="Button" parent="HBoxContainer" unique_id=1840740967]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_type_variation = &"FlatButton"
+icon = ExtResource("2_v687h")
+
+[node name="SpinBox" type="SpinBox" parent="." unique_id=60345557]
+layout_mode = 2
+min_value = -1.0
+max_value = 1.0
+step = 0.1
+
+[node name="HSlider" type="HSlider" parent="." unique_id=184018032]
+layout_mode = 2
+min_value = -1.0
+max_value = 1.0
+step = 0.1
+
+[node name="PopupPanel" type="PopupPanel" parent="." unique_id=2002402801 node_paths=PackedStringArray("name_input", "units_input", "min_input", "max_input", "step_input", "parameter_input", "config_button")]
+oversampling_override = 1.0
+position = Vector2i(200, 200)
+size = Vector2i(162, 197)
+min_size = Vector2i(150, 0)
+script = ExtResource("3_hol5u")
+name_input = NodePath("")
+units_input = NodePath("")
+min_input = NodePath("VBoxContainer/ParameterMinValue/SpinBox")
+max_input = NodePath("VBoxContainer/ParameterMaxValue/SpinBox")
+step_input = NodePath("VBoxContainer/ParameterStep/SpinBox")
+parameter_input = NodePath("..")
+config_button = NodePath("../HBoxContainer/Button")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel" unique_id=194075019]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 158.0
+offset_bottom = 193.0
+
+[node name="ParameterMinValue" type="VBoxContainer" parent="PopupPanel/VBoxContainer" unique_id=186161589]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PopupPanel/VBoxContainer/ParameterMinValue" unique_id=1151494596]
+layout_mode = 2
+text = "Min Value"
+
+[node name="SpinBox" type="SpinBox" parent="PopupPanel/VBoxContainer/ParameterMinValue" unique_id=2117454461]
+layout_mode = 2
+step = 0.0
+allow_greater = true
+allow_lesser = true
+custom_arrow_step = 0.1
+
+[node name="ParameterMaxValue" type="VBoxContainer" parent="PopupPanel/VBoxContainer" unique_id=508755176]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PopupPanel/VBoxContainer/ParameterMaxValue" unique_id=1443721251]
+layout_mode = 2
+text = "Max Value"
+
+[node name="SpinBox" type="SpinBox" parent="PopupPanel/VBoxContainer/ParameterMaxValue" unique_id=608266227]
+layout_mode = 2
+step = 0.0
+allow_greater = true
+allow_lesser = true
+custom_arrow_step = 0.1
+
+[node name="ParameterStep" type="VBoxContainer" parent="PopupPanel/VBoxContainer" unique_id=1940372215]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PopupPanel/VBoxContainer/ParameterStep" unique_id=933841090]
+layout_mode = 2
+text = "Step"
+
+[node name="SpinBox" type="SpinBox" parent="PopupPanel/VBoxContainer/ParameterStep" unique_id=1002561825]
+layout_mode = 2
+step = 0.0
+allow_greater = true
+allow_lesser = true
+custom_arrow_step = 0.1

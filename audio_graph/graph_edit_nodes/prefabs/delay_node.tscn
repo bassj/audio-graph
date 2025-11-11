@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dvajnnp5y08n2"]
 
-[ext_resource type="Script" uid="uid://dyfok38yqk77q" path="res://audio_graph/graph_edit_nodes/delay_node.gd" id="1_hshs6"]
+[ext_resource type="Script" uid="uid://dyfok38yqk77q" path="res://audio_graph/graph_edit_nodes/scripts/delay_node.gd" id="1_hshs6"]
 
 [node name="DelayNode" type="GraphNode"]
 offset_right = 113.0

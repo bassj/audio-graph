@@ -16,6 +16,8 @@ signal delete_requested()
 
 #region Properties
 
+@export var can_be_deleted: bool = true
+
 @export var value: float = 0.0:
 	set(p_value):
 		if value == p_value:

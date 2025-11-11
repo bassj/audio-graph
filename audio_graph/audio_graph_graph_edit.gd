@@ -1,13 +1,13 @@
 extends GraphEdit
 
-const BaseNode = preload("res://audio_graph/graph_edit_nodes/base_node.gd");
-const MonoOutputNode = preload("res://audio_graph/graph_edit_nodes/mono_output_node.gd");
+const BaseNode = preload("res://audio_graph/graph_edit_nodes/scripts/base_node.gd");
+const MonoOutputNode = preload("res://audio_graph/graph_edit_nodes/scripts/mono_output_node.gd");
 
-const SimpleAudioGenerator: PackedScene = preload("res://audio_graph/graph_edit_nodes/simple_audio_generator.tscn");
-const CustomAudioGenerator: PackedScene = preload("res://audio_graph/graph_edit_nodes/custom_audio_generator.tscn");
-const Mix2Node: PackedScene = preload("res://audio_graph/graph_edit_nodes/mixer_nodes/mix2_node.tscn");
-const DelayNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/delay_node.tscn");
-const GainNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/gain_node.tscn");
+const SimpleAudioGenerator: PackedScene = preload("res://audio_graph/graph_edit_nodes/prefabs/simple_audio_generator.tscn");
+const CustomAudioGenerator: PackedScene = preload("res://audio_graph/graph_edit_nodes/prefabs/custom_audio_generator.tscn");
+const Mix2Node: PackedScene = preload("res://audio_graph/graph_edit_nodes/prefabs/mix2_node.tscn");
+const DelayNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/prefabs/delay_node.tscn");
+const GainNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/prefabs/gain_node.tscn");
 
 @export var audio_graph: AudioGraph:
 	set(p_audio_graph):

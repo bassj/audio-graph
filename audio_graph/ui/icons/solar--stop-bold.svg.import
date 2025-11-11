@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bucepkimg7yrx"
-path="res://.godot/imported/GuiTabMenu.svg-f961f29c3aaa4e9e765f9c35e8a58a5e.ctex"
+uid="uid://c0qchdnruud8n"
+path="res://.godot/imported/solar--stop-bold.svg-ed2083eceb073b41405d4cd3769aae64.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/icons/GuiTabMenu.svg"
-dest_files=["res://.godot/imported/GuiTabMenu.svg-f961f29c3aaa4e9e765f9c35e8a58a5e.ctex"]
+source_file="res://audio_graph/ui/icons/solar--stop-bold.svg"
+dest_files=["res://.godot/imported/solar--stop-bold.svg-ed2083eceb073b41405d4cd3769aae64.ctex"]
 
 [params]
 

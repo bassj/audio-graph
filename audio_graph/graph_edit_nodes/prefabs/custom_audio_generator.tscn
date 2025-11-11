@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://bcnwiqgsnbjbq"]
 
-[ext_resource type="Script" uid="uid://bccsc3uy014xo" path="res://audio_graph/graph_edit_nodes/custom_audio_generator.gd" id="1_wpy7s"]
-[ext_resource type="Script" uid="uid://d0oca172jemxl" path="res://ui/function_plotter.gd" id="2_8a5il"]
-[ext_resource type="Texture2D" uid="uid://dxom1r6qrxmub" path="res://ui/icons/Add.svg" id="3_8a5il"]
+[ext_resource type="Script" uid="uid://bccsc3uy014xo" path="res://audio_graph/graph_edit_nodes/scripts/custom_audio_generator.gd" id="1_wpy7s"]
+[ext_resource type="Script" uid="uid://d0oca172jemxl" path="res://audio_graph/ui/scripts/function_plotter.gd" id="2_8a5il"]
+[ext_resource type="Texture2D" uid="uid://dxom1r6qrxmub" path="res://audio_graph/ui/icons/Add.svg" id="3_8a5il"]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_wpy7s"]
 number_color = Color(0.92, 0.58, 0.2, 1)

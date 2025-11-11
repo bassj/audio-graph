@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c4s7dpyk5mljs"]
 
-[ext_resource type="Script" uid="uid://d0oca172jemxl" path="res://ui/function_plotter.gd" id="1_ht3e8"]
+[ext_resource type="Script" uid="uid://d0oca172jemxl" path="res://audio_graph/ui/scripts/function_plotter.gd" id="1_ht3e8"]
 
 [node name="FunctionPlotter" type="Control"]
 layout_mode = 3

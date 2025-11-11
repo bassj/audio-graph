@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxom1r6qrxmub"
-path="res://.godot/imported/Add.svg-4eb2bdd26d3a32b5c2b54778b0cd9530.ctex"
+uid="uid://bucepkimg7yrx"
+path="res://.godot/imported/GuiTabMenu.svg-4b6ae82ac5387002b52d73a0c55482c8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/icons/Add.svg"
-dest_files=["res://.godot/imported/Add.svg-4eb2bdd26d3a32b5c2b54778b0cd9530.ctex"]
+source_file="res://audio_graph/ui/icons/GuiTabMenu.svg"
+dest_files=["res://.godot/imported/GuiTabMenu.svg-4b6ae82ac5387002b52d73a0c55482c8.ctex"]
 
 [params]
 
