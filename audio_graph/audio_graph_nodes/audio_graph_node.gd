@@ -10,14 +10,6 @@ var audio_graph: AudioGraph = null:
 @export
 var inputs: Dictionary[int, Dictionary] = {}
 
-var phase := 0.0:
-	set(p_phase):
-		pass # noop - read only
-	get():
-		if audio_graph == null:
-			return 0.0
-		return fmod(audio_graph.playback_position, 1.0)
-
 func set_audio_graph(p_audio_graph: AudioGraph) -> void:
 	audio_graph = p_audio_graph
 
@@ -48,7 +40,7 @@ func set_input(index: int, input: AudioGraphNode, output_index: int = 0) -> bool
 
 	return true
 
-func sample(_output_index: int) -> float:
+func sample(_output_index: int, _time_scale: float = 1.0) -> float:
 	assert(false, "sample() not implemented in subclass")
 	return 0.0
 

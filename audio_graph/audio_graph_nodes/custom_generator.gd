@@ -7,6 +7,8 @@ signal execution_error(String)
 @export var expression: String = "sin(TAU * phase)"
 @export var parameters: Dictionary[String, Variant] = {}
 
+var phase := 0.0
+
 var _expression: Expression = Expression.new()
 var _context := ExpressionContext.new(self)
 var _parse_error := false
@@ -17,10 +19,12 @@ func _update_expression() -> Error:
 	_parse_error = res != OK
 	return res
 
-func sample(output_index: int) -> float:
+func sample(output_index: int, time_scale: float = 1.0) -> float:
 	assert(output_index == 0, "CustomGenerator node only has one output (index 0)")
 
 	var value = sample_at(phase)
+	var increment := (time_scale / float(audio_graph.mix_rate))
+	phase = fmod(phase + increment, 1.0)
 	return value
 
 func sample_at(p_phase: float) -> float:

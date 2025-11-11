@@ -11,14 +11,20 @@ const FUNCTION_SAWTOOTH := "sawtooth"
 @export var amplitude: float = 1.0
 @export var phase_offset: float
 
+var phase := 0.0
+
 func _init(p_function: String = FUNCTION_SINE, p_phase_offset: float = 0.0) -> void:
 	function = p_function
 	phase_offset = p_phase_offset
 
-func sample(output_index: int) -> float:
+func sample(output_index: int, time_scale: float = 1.0) -> float:
 	assert(output_index == 0, "SimpleGenerator node only has one output (index 0)")
 
 	var value = sample_at(phase + phase_offset)
+
+	var increment := (time_scale / float(audio_graph.mix_rate))
+	phase = fmod(phase + increment, 1.0)
+
 	return value
 
 func sample_at(p_phase: float) -> float:

@@ -20,14 +20,14 @@ func _init(p_buffer_size = 4410) -> void:
 	delay_buffer_size = p_buffer_size
 	_resize_buffer()
 
-func sample(output_index: int) -> float:
+func sample(output_index: int, time_scale: float = 1.0) -> float:
 	assert(output_index == 0, "Delay node only has one output (index 0)")
 
 	var val := 0.0
 	var input = inputs.get(0)
 
 	if input != null:
-		val = input["node"].sample(input["output_index"])
+		val = input["node"].sample(input["output_index"], time_scale)
 	_buffer[_buffer_pointer] = val
 
 	var sample_pointer = (_buffer_pointer + 1) % delay_buffer_size

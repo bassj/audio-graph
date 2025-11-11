@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="AudioGraph" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="AudioGraph" load_steps=12 format=3 uid="uid://be8fkg1ubjec7"]
 
-[ext_resource type="Script" path="res://audio_graph/audio_graph_nodes/custom_generator.gd" id="1_e4xtt"]
-[ext_resource type="Script" path="res://audio_graph/audio_graph_nodes/mixer.gd" id="1_mtnbl"]
-[ext_resource type="Script" path="res://audio_graph/audio_graph.gd" id="2_e4xtt"]
+[ext_resource type="Script" uid="uid://s2lsi6w4q5fs" path="res://audio_graph/audio_graph_nodes/custom_generator.gd" id="1_e4xtt"]
+[ext_resource type="Script" uid="uid://duu83wt4iuekh" path="res://audio_graph/audio_graph_nodes/mixer.gd" id="1_mtnbl"]
+[ext_resource type="Script" uid="uid://cbodbked54srs" path="res://audio_graph/audio_graph.gd" id="2_e4xtt"]
+[ext_resource type="Script" uid="uid://fe664sw1ahg5" path="res://audio_graph/audio_graph_nodes/audio_graph_node.gd" id="3_j86ff"]
 
 [sub_resource type="Resource" id="Resource_i83rb"]
 script = ExtResource("1_e4xtt")
@@ -46,17 +47,6 @@ inputs = Dictionary[int, Dictionary]({
 })
 metadata/graph_edit_position = Vector2(-420, -40)
 
-[sub_resource type="Resource" id="Resource_nhsk2"]
-script = ExtResource("1_e4xtt")
-expression = "piecewise(
-	sin(TAU * 2.0 * phase),
-	0.0,
-	0.25
-)"
-metadata/graph_edit_position = Vector2(-1300, 280)
-metadata/graph_edit_size = Vector2(256, 457)
-metadata/graph_edit_param_meta = {}
-
 [sub_resource type="Resource" id="Resource_5xr8j"]
 script = ExtResource("1_e4xtt")
 expression = "piecewise(
@@ -66,6 +56,17 @@ expression = "piecewise(
 )"
 metadata/graph_edit_position = Vector2(-880, 40)
 metadata/graph_edit_size = Vector2(256, 457.00006)
+metadata/graph_edit_param_meta = {}
+
+[sub_resource type="Resource" id="Resource_nhsk2"]
+script = ExtResource("1_e4xtt")
+expression = "piecewise(
+	sin(TAU * 2.0 * phase),
+	0.0,
+	0.25
+)"
+metadata/graph_edit_position = Vector2(-1300, 280)
+metadata/graph_edit_size = Vector2(256, 457)
 metadata/graph_edit_param_meta = {}
 
 [sub_resource type="Resource" id="Resource_yb2xy"]

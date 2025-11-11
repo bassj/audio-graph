@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="AudioGraph" load_steps=7 format=3]
+[gd_resource type="Resource" script_class="AudioGraph" load_steps=8 format=3 uid="uid://celuh50ane0e5"]
 
 [ext_resource type="Script" uid="uid://b2c874lrihi8f" path="res://audio_graph/audio_graph_nodes/simple_generator.gd" id="1_l7fam"]
 [ext_resource type="Script" uid="uid://duu83wt4iuekh" path="res://audio_graph/audio_graph_nodes/mixer.gd" id="2_g71bp"]
+[ext_resource type="Script" uid="uid://fe664sw1ahg5" path="res://audio_graph/audio_graph_nodes/audio_graph_node.gd" id="3_3o3ey"]
 [ext_resource type="Script" uid="uid://cbodbked54srs" path="res://audio_graph/audio_graph.gd" id="3_jkjdv"]
 
 [sub_resource type="Resource" id="Resource_dos4t"]

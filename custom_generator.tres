@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="AudioGraph" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="AudioGraph" load_steps=5 format=3 uid="uid://dd6blshpb3433"]
 
-[ext_resource type="Script" path="res://audio_graph/audio_graph_nodes/custom_generator.gd" id="1_83ka3"]
-[ext_resource type="Script" path="res://audio_graph/audio_graph.gd" id="2_myjx0"]
+[ext_resource type="Script" uid="uid://s2lsi6w4q5fs" path="res://audio_graph/audio_graph_nodes/custom_generator.gd" id="1_83ka3"]
+[ext_resource type="Script" uid="uid://fe664sw1ahg5" path="res://audio_graph/audio_graph_nodes/audio_graph_node.gd" id="2_4ojf1"]
+[ext_resource type="Script" uid="uid://cbodbked54srs" path="res://audio_graph/audio_graph.gd" id="2_myjx0"]
 
 [sub_resource type="Resource" id="Resource_ec0p6"]
 script = ExtResource("1_83ka3")
