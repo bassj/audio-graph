@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdlghuf1r1r7v"]
+
+[ext_resource type="Script" uid="uid://c8f8nos3vl5nc" path="res://audio_graph/graph_edit_nodes/scripts/waveguide_node.gd" id="1_qhvho"]
+[ext_resource type="PackedScene" uid="uid://brpmpv3qjd622" path="res://audio_graph/ui/prefabs/numeric_value_in.tscn" id="2_qhvho"]
+
+[node name="WaveguideNode" type="GraphNode" unique_id=951326861]
+offset_right = 214.0
+offset_bottom = 318.0
+mouse_filter = 1
+title = "Waveguide"
+slot/0/left_enabled = true
+slot/0/left_type = 1
+slot/0/left_color = Color(0, 1, 0, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 1
+slot/0/right_color = Color(0, 1, 0, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 1
+slot/1/right_color = Color(0, 1, 0, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+script = ExtResource("1_qhvho")
+
+[node name="Label" type="Label" parent="." unique_id=592450649]
+layout_mode = 2
+text = "Audio"
+
+[node name="DelayIn" parent="." unique_id=1245364079 instance=ExtResource("2_qhvho")]
+layout_mode = 2
+value = 0.1
+min_value = 0.0
+step = 0.0
+label = "Delay Length"
+units = "seconds"
+
+[node name="ForwardReflectionIn" parent="." unique_id=925890030 instance=ExtResource("2_qhvho")]
+layout_mode = 2
+value = 1.0
+step = 0.01
+label = "Forward Reflectivity"
+
+[node name="BackwardReflectionIn" parent="." unique_id=334245838 instance=ExtResource("2_qhvho")]
+layout_mode = 2
+value = 1.0
+step = 0.01
+label = "Backward Reflectivity"

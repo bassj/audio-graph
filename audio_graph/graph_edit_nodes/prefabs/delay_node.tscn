@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dyfok38yqk77q" path="res://audio_graph/graph_edit_nodes/scripts/delay_node.gd" id="1_hshs6"]
 
-[node name="DelayNode" type="GraphNode"]
+[node name="DelayNode" type="GraphNode" unique_id=951326861]
 offset_right = 113.0
 offset_bottom = 78.0
 mouse_filter = 1
@@ -27,19 +27,19 @@ slot/1/right_icon = null
 slot/1/draw_stylebox = true
 script = ExtResource("1_hshs6")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=592450649]
 layout_mode = 2
 text = "Audio"
 
-[node name="DelayIn" type="VBoxContainer" parent="."]
+[node name="DelayIn" type="VBoxContainer" parent="." unique_id=1706643023]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="DelayIn"]
+[node name="Label" type="Label" parent="DelayIn" unique_id=2135912102]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "Delay Length"
 
-[node name="SpinBox" type="SpinBox" parent="DelayIn"]
+[node name="SpinBox" type="SpinBox" parent="DelayIn" unique_id=2135312260]
 layout_mode = 2
 min_value = 0.001
 max_value = 3.0
@@ -47,7 +47,7 @@ step = 0.001
 value = 0.1
 suffix = "seconds"
 
-[node name="HSlider" type="HSlider" parent="DelayIn"]
+[node name="HSlider" type="HSlider" parent="DelayIn" unique_id=1218585121]
 layout_mode = 2
 min_value = 0.001
 max_value = 3.0

@@ -9,6 +9,7 @@ const PlaybackSpeedNode: PackedScene = preload("res://audio_graph/graph_edit_nod
 const Mix2Node: PackedScene = preload("res://audio_graph/graph_edit_nodes/prefabs/mix2_node.tscn");
 const DelayNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/prefabs/delay_node.tscn");
 const GainNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/prefabs/gain_node.tscn");
+const WaveGuideNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/prefabs/waveguide_node.tscn");
 
 @export var audio_graph: AudioGraph:
 	set(p_audio_graph):
@@ -34,6 +35,7 @@ var _node_types = {
 		"Delay": DelayNode,
 		"Gain": GainNode,
 		"Playback Speed": PlaybackSpeedNode,
+		"WaveGuide": WaveGuideNode,
 	},
 }
 
@@ -192,6 +194,7 @@ var _audio_to_graph_node = {
 	"CustomGenerator": CustomAudioGenerator,
 	"SimpleGenerator": SimpleAudioGenerator,
 	"PlaybackSpeed": PlaybackSpeedNode,
+	"WaveGuide": WaveGuideNode,
 	"Delay": DelayNode,
 	"Mixer": Mix2Node,
 	"Gain": GainNode,

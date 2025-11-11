@@ -2,7 +2,7 @@
 extends AudioGraphNode
 class_name Delay
 
-@export_custom(PROPERTY_HINT_NONE, "suffix:seconds")
+@export_custom(PROPERTY_HINT_NONE, "suffix:samples")
 var delay_buffer_size: int = 4410 :
 	set(p_buffer_size):
 		delay_buffer_size = p_buffer_size

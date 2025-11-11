@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="AudioGraph" load_steps=16 format=3]
+[gd_resource type="Resource" script_class="AudioGraph" load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://audio_graph/audio_graph_nodes/custom_generator.gd" id="1_rwfx7"]
 [ext_resource type="Script" path="res://audio_graph/audio_graph_nodes/mixer.gd" id="2_ipbby"]
+[ext_resource type="Script" path="res://audio_graph/audio_graph_nodes/waveguide.gd" id="3_ipbby"]
 [ext_resource type="Script" path="res://audio_graph/audio_graph_nodes/playback_speed.gd" id="3_lh3wa"]
 [ext_resource type="Script" path="res://audio_graph/audio_graph_nodes/gain.gd" id="4_c0hqe"]
 [ext_resource type="Script" path="res://audio_graph/audio_graph_nodes/audio_graph_node.gd" id="5_lng8b"]
@@ -68,7 +69,7 @@ expression = "piecewise(
 	0.25
 )"
 metadata/graph_edit_position = Vector2(-1300, 280)
-metadata/graph_edit_size = Vector2(256, 457.00006)
+metadata/graph_edit_size = Vector2(256, 456.99997)
 metadata/graph_edit_param_meta = {}
 
 [sub_resource type="Resource" id="Resource_yb2xy"]
@@ -97,20 +98,33 @@ inputs = Dictionary[int, Dictionary]({
 "output_index": 0
 }
 })
-metadata/graph_edit_position = Vector2(-320, 100)
+metadata/graph_edit_position = Vector2(-360, 120)
 
-[sub_resource type="Resource" id="Resource_a3wti"]
-script = ExtResource("3_lh3wa")
-playback_speed = 10.0
+[sub_resource type="Resource" id="Resource_lh3wa"]
+script = ExtResource("3_ipbby")
+waveguide_buffer_size = 49
+reflection_forward = 0.96
+reflection_backward = 0.06000000000000005
 inputs = Dictionary[int, Dictionary]({
 0: {
 "node": SubResource("Resource_408w6"),
 "output_index": 0
 }
 })
-metadata/graph_edit_position = Vector2(-100, 160)
+metadata/graph_edit_position = Vector2(-100, 100)
+
+[sub_resource type="Resource" id="Resource_a3wti"]
+script = ExtResource("3_lh3wa")
+playback_speed = 26.89
+inputs = Dictionary[int, Dictionary]({
+0: {
+"node": SubResource("Resource_lh3wa"),
+"output_index": 0
+}
+})
+metadata/graph_edit_position = Vector2(180, 280)
 metadata/graph_edit_param_meta = {
-"max_value": 100.0,
+"max_value": 150.0,
 "min_value": 0.0,
 "step": 0.01,
 "units": "x"
@@ -118,17 +132,16 @@ metadata/graph_edit_param_meta = {
 
 [sub_resource type="Resource" id="Resource_ygk2d"]
 script = ExtResource("4_c0hqe")
-gain = 0.14125375446227545
 inputs = Dictionary[int, Dictionary]({
 0: {
 "node": SubResource("Resource_a3wti"),
 "output_index": 0
 }
 })
-metadata/graph_edit_position = Vector2(140, 200)
+metadata/graph_edit_position = Vector2(400, 280)
 
 [resource]
 script = ExtResource("6_ynrxe")
 graph_root = SubResource("Resource_ygk2d")
 metadata/_custom_type_script = "uid://cbodbked54srs"
-metadata/output_graph_edit_position = Vector2(597, 305)
+metadata/output_graph_edit_position = Vector2(620, 280)
