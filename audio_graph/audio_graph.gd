@@ -1,4 +1,3 @@
-# Add a way to adjust the phase or playback speed of custom generators
 
 @tool
 extends Resource

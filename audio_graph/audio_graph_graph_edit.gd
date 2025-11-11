@@ -5,6 +5,7 @@ const MonoOutputNode = preload("res://audio_graph/graph_edit_nodes/scripts/mono_
 
 const SimpleAudioGenerator: PackedScene = preload("res://audio_graph/graph_edit_nodes/prefabs/simple_audio_generator.tscn");
 const CustomAudioGenerator: PackedScene = preload("res://audio_graph/graph_edit_nodes/prefabs/custom_audio_generator.tscn");
+const PlaybackSpeedNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/prefabs/playback_speed_node.tscn");
 const Mix2Node: PackedScene = preload("res://audio_graph/graph_edit_nodes/prefabs/mix2_node.tscn");
 const DelayNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/prefabs/delay_node.tscn");
 const GainNode: PackedScene = preload("res://audio_graph/graph_edit_nodes/prefabs/gain_node.tscn");
@@ -32,6 +33,7 @@ var _node_types = {
 	"Effect": {
 		"Delay": DelayNode,
 		"Gain": GainNode,
+		"Playback Speed": PlaybackSpeedNode,
 	},
 }
 
@@ -189,6 +191,7 @@ func _clear_graph_nodes() -> void:
 var _audio_to_graph_node = {
 	"CustomGenerator": CustomAudioGenerator,
 	"SimpleGenerator": SimpleAudioGenerator,
+	"PlaybackSpeed": PlaybackSpeedNode,
 	"Delay": DelayNode,
 	"Mixer": Mix2Node,
 	"Gain": GainNode,

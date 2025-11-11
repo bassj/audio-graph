@@ -1,6 +1,6 @@
 extends "res://audio_graph/graph_edit_nodes/scripts/base_node.gd"
 
-var ParameterInputScene: PackedScene = preload("res://ui/custom_function_parameter.tscn")
+const ParameterInputScene: PackedScene = preload("res://audio_graph/ui/prefabs/custom_function_parameter.tscn")
 
 @export var preview: FunctionPlotter
 
@@ -35,13 +35,7 @@ func save_editor_metadata() -> void:
 	for c in variable_container.get_children():
 		var number_input = c as NumberInput
 		var param_name = number_input.label
-		param_meta[param_name] = {
-			"min_value": number_input.min_value,
-			"max_value": number_input.max_value,
-			"step": number_input.step,
-			"units": number_input.units,
-		}
-
+		param_meta[param_name] = _get_param_meta(number_input)
 	generator.set_meta("graph_edit_param_meta", param_meta)
 
 func apply_editor_metadata() -> void:

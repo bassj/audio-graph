@@ -63,4 +63,22 @@ func _disconnect_all(_signal: Signal) -> void:
 	for connection in _signal.get_connections():
 		_signal.disconnect(connection["callable"])
 
+func _get_param_meta(input: NumberInput) -> Dictionary:
+	return {
+		"min_value": input.min_value,
+		"max_value": input.max_value,
+		"step": input.step,
+		"units": input.units,
+	}
+
+func _apply_param_meta(meta: Dictionary, input: NumberInput) -> void:
+	if meta.has("min_value"):
+		input.min_value = meta["min_value"]
+	if meta.has("max_value"):
+		input.max_value = meta["max_value"]
+	if meta.has("step"):
+		input.step = meta["step"]
+	if meta.has("units"):
+		input.units = meta["units"]
+
 #endregion
