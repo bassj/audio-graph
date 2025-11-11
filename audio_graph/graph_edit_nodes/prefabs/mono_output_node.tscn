@@ -1,12 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://cyoxydacsgr02"]
+[gd_scene load_steps=12 format=3 uid="uid://cyoxydacsgr02"]
 
 [ext_resource type="Script" uid="uid://kljwyh1r84jn" path="res://audio_graph/graph_edit_nodes/scripts/mono_output_node.gd" id="1_3ejgn"]
-[ext_resource type="Texture2D" uid="uid://exo5ffos1gtk" path="res://audio_graph/ui/icons/solar--play-bold.svg" id="2_ryff6"]
-[ext_resource type="Texture2D" uid="uid://8y0tv2rusl0r" path="res://audio_graph/ui/icons/solar--pause-bold.svg" id="3_5o8ix"]
+[ext_resource type="Texture2D" uid="uid://4cmtm4v1gb84" path="res://audio_graph/ui/icons/Play.svg" id="2_6p761"]
+[ext_resource type="Texture2D" uid="uid://cqtirbjwhupcc" path="res://audio_graph/ui/icons/Pause.svg" id="3_6p761"]
 [ext_resource type="Script" uid="uid://8gbmea3v8e6b" path="res://audio_graph/audio_graph_player.gd" id="3_72282"]
 [ext_resource type="Script" uid="uid://b2c874lrihi8f" path="res://audio_graph/audio_graph_nodes/simple_generator.gd" id="4_81dvp"]
-[ext_resource type="Texture2D" uid="uid://c0qchdnruud8n" path="res://audio_graph/ui/icons/solar--stop-bold.svg" id="4_ysbfd"]
+[ext_resource type="Texture2D" uid="uid://degyh8rynfevx" path="res://audio_graph/ui/icons/Stop.svg" id="4_qtqfk"]
 [ext_resource type="Script" uid="uid://cbodbked54srs" path="res://audio_graph/audio_graph.gd" id="5_5o8ix"]
+[ext_resource type="Script" uid="uid://fe664sw1ahg5" path="res://audio_graph/audio_graph_nodes/audio_graph_node.gd" id="7_qtqfk"]
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_ysbfd"]
 
@@ -20,7 +21,7 @@ script = ExtResource("5_5o8ix")
 graph_root = SubResource("Resource_8mm7a")
 metadata/_custom_type_script = "uid://cbodbked54srs"
 
-[node name="GraphNode" type="GraphNode"]
+[node name="GraphNode" type="GraphNode" unique_id=1508156495]
 offset_right = 113.0
 offset_bottom = 78.0
 mouse_filter = 1
@@ -55,33 +56,36 @@ slot/2/draw_stylebox = true
 script = ExtResource("1_3ejgn")
 can_be_deleted = false
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1570008145]
 layout_mode = 2
 text = "Audio"
 
-[node name="PlaybackPosition" type="Label" parent="."]
+[node name="PlaybackPosition" type="Label" parent="." unique_id=1663308178]
 layout_mode = 2
 text = "00:00:00"
 horizontal_alignment = 1
 
-[node name="Controls" type="HBoxContainer" parent="."]
+[node name="Controls" type="HBoxContainer" parent="." unique_id=842985067]
 layout_mode = 2
 
-[node name="PlayButton" type="Button" parent="Controls"]
+[node name="PlayButton" type="Button" parent="Controls" unique_id=566047499]
 layout_mode = 2
 size_flags_horizontal = 4
-icon = ExtResource("2_ryff6")
+theme_type_variation = &"FlatButton"
+icon = ExtResource("2_6p761")
 icon_alignment = 1
 
-[node name="PauseButton" type="Button" parent="Controls"]
+[node name="PauseButton" type="Button" parent="Controls" unique_id=807203148]
 layout_mode = 2
-icon = ExtResource("3_5o8ix")
+theme_type_variation = &"FlatButton"
+icon = ExtResource("3_6p761")
 
-[node name="StopButton" type="Button" parent="Controls"]
+[node name="StopButton" type="Button" parent="Controls" unique_id=1774226038]
 layout_mode = 2
-icon = ExtResource("4_ysbfd")
+theme_type_variation = &"FlatButton"
+icon = ExtResource("4_qtqfk")
 
-[node name="AudioGraphPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioGraphPlayer" type="AudioStreamPlayer" parent="." unique_id=1135080521]
 stream = SubResource("AudioStreamGenerator_ysbfd")
 script = ExtResource("3_72282")
 audio_graph = SubResource("Resource_tisc8")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8y0tv2rusl0r"
-path="res://.godot/imported/solar--pause-bold.svg-33c24048cfdd3d5dfd7902db2ee365bb.ctex"
+uid="uid://4cmtm4v1gb84"
+path="res://.godot/imported/Play.svg-9ca32ad37b15d60f44c2544aef584723.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://audio_graph/ui/icons/solar--pause-bold.svg"
-dest_files=["res://.godot/imported/solar--pause-bold.svg-33c24048cfdd3d5dfd7902db2ee365bb.ctex"]
+source_file="res://audio_graph/ui/icons/Play.svg"
+dest_files=["res://.godot/imported/Play.svg-9ca32ad37b15d60f44c2544aef584723.ctex"]
 
 [params]
 
@@ -38,6 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
+svg/scale=2.0
 editor/scale_with_editor_scale=false
 editor/convert_colors_with_editor_theme=false
