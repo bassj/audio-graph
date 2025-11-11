@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdlghuf1r1r7v"]
+[gd_scene load_steps=5 format=3 uid="uid://bdlghuf1r1r7v"]
 
 [ext_resource type="Script" uid="uid://c8f8nos3vl5nc" path="res://audio_graph/graph_edit_nodes/scripts/waveguide_node.gd" id="1_qhvho"]
+[ext_resource type="Script" uid="uid://ccp658a3uity7" path="res://audio_graph/audio_graph_nodes/waveguide.gd" id="2_3mymk"]
 [ext_resource type="PackedScene" uid="uid://brpmpv3qjd622" path="res://audio_graph/ui/prefabs/numeric_value_in.tscn" id="2_qhvho"]
+
+[sub_resource type="Resource" id="Resource_yraoa"]
+script = ExtResource("2_3mymk")
 
 [node name="WaveguideNode" type="GraphNode" unique_id=951326861]
 offset_right = 214.0
@@ -45,6 +49,7 @@ slot/3/right_color = Color(1, 1, 1, 1)
 slot/3/right_icon = null
 slot/3/draw_stylebox = true
 script = ExtResource("1_qhvho")
+waveguide = SubResource("Resource_yraoa")
 
 [node name="Label" type="Label" parent="." unique_id=592450649]
 layout_mode = 2

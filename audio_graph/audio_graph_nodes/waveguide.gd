@@ -49,4 +49,4 @@ func sample(output_index: int, time_scale: float = 1.0) -> float:
     _backward_buffer[_buffer_pointer] = forward_sample * reflection_backward
 
     _buffer_pointer = _sample_pointer
-    return backward_sample
+    return forward_sample
