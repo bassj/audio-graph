@@ -27,14 +27,16 @@ func sample(output_index: int, time_scale: float = 1.0) -> float:
 
 	return value
 
+var sample_functions: Dictionary = {
+	"sine": _sine,
+	"square": _square,
+	"sawtooth": _sawtooth
+}
+
 func sample_at(p_phase: float) -> float:
 	var value = 0.0
-	if function == "sine":
-		value = _sine(p_phase)
-	elif function == "square":
-		value = _square(p_phase)
-	elif function == "sawtooth":
-		value = _sawtooth(p_phase)
+	if sample_functions.has(function):
+		value = sample_functions[function].call(p_phase)
 	return value
 
 func get_leaf_nodes() -> Array[AudioGraphNode]:
