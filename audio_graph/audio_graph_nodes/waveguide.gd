@@ -2,6 +2,8 @@
 extends AudioGraphNode
 class_name WaveGuide
 
+var bypass := false
+
 @export_custom(PROPERTY_HINT_NONE, "suffix:samples")
 var waveguide_buffer_size: int = 4410 :
     set(p_buffer_size):
@@ -13,7 +15,6 @@ var reflection_forward: float = 1.0
 
 @export
 var reflection_backward: float = 1.0
-
 
 var _forward_buffer := PackedFloat32Array()
 var _backward_buffer := PackedFloat32Array()
@@ -49,4 +50,8 @@ func sample(output_index: int, time_scale: float = 1.0) -> float:
     _backward_buffer[_buffer_pointer] = forward_sample * reflection_backward
 
     _buffer_pointer = _sample_pointer
+
+    if bypass:
+         return val
+
     return forward_sample

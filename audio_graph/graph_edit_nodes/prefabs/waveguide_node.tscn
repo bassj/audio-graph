@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdlghuf1r1r7v"]
+[gd_scene format=3 uid="uid://bdlghuf1r1r7v"]
 
 [ext_resource type="Script" uid="uid://c8f8nos3vl5nc" path="res://audio_graph/graph_edit_nodes/scripts/waveguide_node.gd" id="1_qhvho"]
 [ext_resource type="Script" uid="uid://ccp658a3uity7" path="res://audio_graph/audio_graph_nodes/waveguide.gd" id="2_3mymk"]
@@ -51,9 +51,18 @@ slot/3/draw_stylebox = true
 script = ExtResource("1_qhvho")
 waveguide = SubResource("Resource_yraoa")
 
-[node name="Label" type="Label" parent="." unique_id=592450649]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=606492915]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=592450649]
 layout_mode = 2
 text = "Audio"
+
+[node name="BypassButton" type="Button" parent="HBoxContainer" unique_id=1433914188]
+layout_mode = 2
+size_flags_horizontal = 10
+toggle_mode = true
+text = "Bypass"
 
 [node name="DelayIn" parent="." unique_id=1245364079 instance=ExtResource("2_qhvho")]
 layout_mode = 2

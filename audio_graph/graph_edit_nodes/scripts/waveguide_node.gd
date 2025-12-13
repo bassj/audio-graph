@@ -5,6 +5,7 @@ extends "res://audio_graph/graph_edit_nodes/scripts/base_node.gd"
 @onready var length_in: NumberInput = $DelayIn
 @onready var reflection_in: NumberInput = $ForwardReflectionIn
 @onready var reflection_back: NumberInput = $BackwardReflectionIn
+@onready var bypass_button: Button = $HBoxContainer/BypassButton
 
 @export var waveguide: WaveGuide = WaveGuide.new()
 
@@ -41,4 +42,8 @@ func _ready() -> void:
 
 	reflection_back.value_changed.connect(func(value):
 		waveguide.reflection_backward = value
+	)
+
+	bypass_button.toggled.connect(func (pressed):
+		waveguide.bypass = pressed
 	)
