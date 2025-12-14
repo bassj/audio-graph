@@ -18,6 +18,14 @@ signal delete_requested()
 
 @export var can_be_deleted: bool = true
 
+@export var enabled: bool = true :
+	set(p_enabled):
+		enabled = p_enabled
+		if is_inside_tree():
+			_update_config()
+		else:
+			_update_config.call_deferred()
+
 @export var value: float = 0.0:
 	set(p_value):
 		if value == p_value:
@@ -93,6 +101,9 @@ func _update_value() -> void:
 	slider.value = value
 
 func _update_config() -> void:
+	spinner.editable = enabled
+	slider.editable = enabled
+
 	spinner.min_value = min_value
 	spinner.max_value = max_value
 	spinner.step = step

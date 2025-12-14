@@ -1,10 +1,12 @@
-
 @tool
 extends Resource
 class_name AudioGraph
 
 signal graph_branch_added(new_branch: AudioGraphNode)
 signal mix_rate_changed(new_mix_rate: int)
+
+const TYPE_FLOAT: int = 0
+const TYPE_AUDIO: int = 1
 
 @export var graph_root: AudioGraphNode :
 	set(p_graph_root):

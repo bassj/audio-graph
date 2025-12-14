@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dn7avnhruiiq2"]
+[gd_scene format=3 uid="uid://dn7avnhruiiq2"]
 
 [ext_resource type="Texture2D" uid="uid://cxa5gip1s33d6" path="res://audio_graph/ui/icons/Save.svg" id="1_8mm7a"]
 [ext_resource type="Script" uid="uid://chqq8bf0g1hsk" path="res://audio_graph/audio_graph_graph_edit.gd" id="1_wtcfe"]
@@ -59,8 +59,8 @@ anchor_right = 0.60200006
 anchor_bottom = 0.57000005
 offset_left = -96.50409
 offset_top = -64.36005
-offset_right = 43.49591
-offset_bottom = 72.63995
+offset_right = 67.49591
+offset_bottom = 80.63995
 position_offset = Vector2(597, 305)
 
 [node name="Panel" type="Panel" parent="CanvasLayer" unique_id=2043421403]

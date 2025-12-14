@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cs4oifbidg27k"]
+[gd_scene format=3 uid="uid://cs4oifbidg27k"]
 
 [ext_resource type="Script" uid="uid://c2d11berojt4n" path="res://audio_graph/graph_edit_nodes/scripts/gain_node.gd" id="1_royrb"]
 [ext_resource type="Script" uid="uid://dbc81w2xo8vig" path="res://audio_graph/audio_graph_nodes/gain.gd" id="2_t8can"]
@@ -21,7 +21,7 @@ slot/0/right_type = 1
 slot/0/right_color = Color(0, 1, 0, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
-slot/1/left_enabled = false
+slot/1/left_enabled = true
 slot/1/left_type = 0
 slot/1/left_color = Color(1, 1, 1, 1)
 slot/1/left_icon = null
